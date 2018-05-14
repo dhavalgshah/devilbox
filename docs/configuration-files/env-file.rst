@@ -423,6 +423,36 @@ and report as unsuccessful. The default is ``1`` second, wich should be fairly s
 +-----------------------+----------------+-------------------+
 
 
+.. _env_devilbox_ui_ssl_cn:
+
+DEVILBOX_UI_SSL_CN
+------------------
+
+When accessing the Devilbox intranet via ``https`` it will use an automatically created SSL certificate.
+Each SSL certificate requires a valid Common Name, which must match the virtual host name.
+
+This setting let's you specify by what **name** you are accessing the Devilbox intranet.
+The default is ``localhost``, but if you have created your own alias, you must change this value
+accordingly. Also note that multiple values are possible and must be separated with a comma.
+When you add an asterisk (``*.``) to the beginning, it means it will create a wildcard certificate for that
+hostname.
+
++-------------------------+------------------------------+-----------------------------------------------+
+| Name                    | Allowed values               | Default value                                 |
++=========================+==============================+===============================================+
+| ``DEVILBOX_UI_SSL_CN``  | comma separated list of CN's | ``localhost,*.localhost,devilbox,*.devilbox`` |
++-------------------------+------------------------------+-----------------------------------------------+
+
+**Examples**:
+
+* ``DEVILBOX_UI_SSL_CN=localhost``
+* ``DEVILBOX_UI_SSL_CN=localhost,*.localhost``
+* ``DEVILBOX_UI_SSL_CN=localhost,*.localhost,devilbox,*.devilbox``
+* ``DEVILBOX_UI_SSL_CN=intranet.example.com``
+
+.. seealso:: :ref:`configuration_https_ssl`
+
+
 .. _env_devilbox_ui_protect:
 
 DEVILBOX_UI_PROTECT
@@ -458,13 +488,13 @@ password by which it will be protected.
 +--------------------------+----------------+-------------------+
 
 
-.. _env_devilbox_ui_disable:
+.. _env_devilbox_ui_enable:
 
-DEVILBOX_UI_DISABLE
+DEVILBOX_UI_ENABLE
 -------------------
 
 In case you want to completely disable the Devilbox intranet, such as when running it on production,
-you need to set this variable to ``1``.
+you need to set this variable to ``0``.
 
 By disabling the intranet, the webserver will simply remove the default virtual host and redirect
 all IP-based requests to the first available virtual host, which will be you first project when
@@ -473,7 +503,7 @@ ordering their names alphabetically.
 +-------------------------+----------------+-------------------+
 | Name                    | Allowed values | Default value     |
 +=========================+================+===================+
-| ``DEVILBOX_UI_DISABLE`` | ``0`` or ``1`` | ``0``             |
+| ``DEVILBOX_UI_ENABLE``  | ``0`` or ``1`` | ``1``             |
 +-------------------------+----------------+-------------------+
 
 
@@ -494,11 +524,11 @@ PHP_SERVER
 
 This variable choses your desired PHP-FPM version to be started.
 
-+-------------------------+--------------------------------------------------------------------------------------------------------------------------+-----------------+
-| Name                    | Allowed values                                                                                                           | Default value   |
-+=========================+==========================================================================================================================+=================+
-| ``PHP_SERVER``          | ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` | ``php-fpm-7.1`` |
-+-------------------------+--------------------------------------------------------------------------------------------------------------------------+-----------------+
++-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Name                    | Allowed values                                                                                                                                | Default value   |
++=========================+===============================================================================================================================================+=================+
+| ``PHP_SERVER``          | ``php-fpm-5.3`` |br| ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` | ``php-fpm-7.1`` |
++-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
 
 All values are already available in the ``.env`` file and just need to be commented or uncommented. If multiple values are uncommented, the last uncommented variable one takes precedences:
 
@@ -509,14 +539,13 @@ All values are already available in the ``.env`` file and just need to be commen
 
    host> grep PHP_SERVER .env
 
+   #PHP_SERVER=php-fpm-5.3
    #PHP_SERVER=php-fpm-5.4
    #PHP_SERVER=php-fpm-5.5
    #PHP_SERVER=php-fpm-5.6
    #PHP_SERVER=php-fpm-7.0
    PHP_SERVER=php-fpm-7.1
    #PHP_SERVER=php-fpm-7.2
-   #PHP_SERVER=php-fpm-7.3
-   #PHP_SERVER=hhvm-latest
 
 
 .. _env_httpd_server:
@@ -990,6 +1019,19 @@ else if 80 is already in use on your host operating system.
 +----------------------+-------------------+------------------+
 
 
+HOST_PORT_HTTPD_SSL
+-------------------
+
+The port to expose for the web server (Apache or Nginx) for HTTPS (SSL) requests. This is usually
+443. Set it to something else if 443 is already in use on your host operating system.
+
++--------------------------+-------------------+------------------+
+| Name                     | Allowed values    | Default value    |
++==========================+===================+==================+
+| ``HOST_PORT_HTTPD_SSL``  | ``1`` - ``65535`` | ``443``           |
++--------------------------+-------------------+------------------+
+
+
 HOST_PORT_MYSQL
 ---------------
 
@@ -1337,7 +1379,7 @@ As the Devilbox is intended to be used for development, this feature is turned o
 +-------------------------+-------------------+---------------------+
 | Name                    | Allowed values    | Default value       |
 +=========================+===================+=====================+
-| ``MYSQL_GENERAL_LOG``   | ``0`` or ``1``    | ``1``               |
+| ``MYSQL_GENERAL_LOG``   | ``0`` or ``1``    | ``0``               |
 +-------------------------+-------------------+---------------------+
 
 **MySQL documentation:**

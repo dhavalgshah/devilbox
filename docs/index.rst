@@ -95,6 +95,7 @@ host is ready to be served with your custom domain.
    examples/setup-wordpress
    examples/setup-yii
    examples/setup-zend
+   examples/setup-other-frameworks
 
 
 .. toctree::
@@ -110,16 +111,8 @@ host is ready to be served with your custom domain.
    :caption: Global configuration
    :maxdepth: 2
 
-   configuration-global/webserver
-   configuration-global/php
-   configuration-global/mysql
-   configuration-global/mongodb
-   configuration-global/redis
-   configuration-global/memcached
-   configuration-global/bind
-   configuration-global/devilbox-intranet
+   configuration-global/https-ssl
    configuration-global/auto-dns
-   configuration-global/logging
 
 
 .. toctree::

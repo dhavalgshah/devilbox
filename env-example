@@ -149,6 +149,22 @@ TIMEZONE=Europe/Berlin
 DNS_CHECK_TIMEOUT=1
 
 
+
+###
+### Devilbox UI SSL Certificate generation
+###
+### When using SSL each certificate requires names for which it is responsible:
+### Common Name as well as alternative names.
+###
+### Specify comma separated hostnames below by which you want to access the Devilbox.
+### Those hostnames will be included in the SSL certificate for the Devilbox intranet.
+### This has nothing to do for SSL certificates for projects, it is just for the intranet
+### itself.
+###
+DEVILBOX_UI_SSL_CN=localhost,*.localhost,devilbox,*.devilbox
+
+
+
 ###
 ### Devilbox UI Password protection enable/disable (1/0)
 ###
@@ -180,13 +196,13 @@ DEVILBOX_UI_PASSWORD=password
 
 
 ###
-### Disable the Devilbox Intranet?
+### Enable the Devilbox Intranet?
 ###
 ### Example:
-###   DEVILBOX_UI_DISABLE=1
-###   DEVILBOX_UI_DISABLE=0
+###   DEVILBOX_UI_ENABLE=1
+###   DEVILBOX_UI_ENABLE=0
 ###
-DEVILBOX_UI_DISABLE=0
+DEVILBOX_UI_ENABLE=1
 
 
 
@@ -205,6 +221,7 @@ DEVILBOX_UI_DISABLE=0
 ###
 ### 1.1 Choose PHP Server Image
 ###
+#PHP_SERVER=5.3
 #PHP_SERVER=5.4
 #PHP_SERVER=5.5
 #PHP_SERVER=5.6
@@ -410,6 +427,7 @@ HOST_PATH_MONGO_DATADIR=./data/mongo
 ### Expose HTTPD Port to Host
 ###
 HOST_PORT_HTTPD=80
+HOST_PORT_HTTPD_SSL=443
 
 ###
 ### Document Root Subdirectory
@@ -442,10 +460,10 @@ HTTPD_TEMPLATE_DIR=.devilbox
 ###
 ### MySQL root user password
 ###
-### If $HOST_PATH_TO_MYSQL_DATADIR already contains an existing
+### If $HOST_PATH_MYSQL_DATADIR already contains an existing
 ### mysql datadir, enter the password for the existing mysql database
 ###
-### If $HOST_PATH_TO_MYSQL_DATADIR is empty, choose a new password that
+### If $HOST_PATH_MYSQL_DATADIR is empty, choose a new password that
 ### will be applied
 ###
 MYSQL_ROOT_PASSWORD=
@@ -453,7 +471,7 @@ MYSQL_ROOT_PASSWORD=
 ###
 ### Custom MySQL Runtime Settings
 ###
-MYSQL_GENERAL_LOG=1
+MYSQL_GENERAL_LOG=0
 
 ###
 ### Expose MySQL Port to Host
