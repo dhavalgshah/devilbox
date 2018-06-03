@@ -69,7 +69,6 @@ docker pull cytopia/mariadb-10.1:${TAG}
 #docker pull postgres:10.1
 #docker pull postgres:10.2
 docker pull postgres:10.3
-#docker pull postgres:10.3
 
 ###
 ### REDIS
