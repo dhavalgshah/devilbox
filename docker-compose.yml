@@ -56,7 +56,7 @@ services:
       ##
       ## Forwarding
       ##
-      - DNS_FORWARDER=${BIND_DNS_RESOLVER:-8.8.8.8,8.8.4.4}
+      - DNS_FORWARDER=${BIND_DNS_RESOLVER:-1.1.1.1,9.9.9.9}
 
       ##
       ## Security

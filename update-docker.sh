@@ -22,9 +22,9 @@ docker pull cytopia/bind:${TAG}
 ### PHP
 ###
 TAG="$( grep '^[[:space:]]*image:.*\${PHP_SERVER' "${CWD}/docker-compose.yml" | sed 's/^.*://g' )"
-docker pull devilbox/php-fpm:5.3-work
-docker pull devilbox/php-fpm:5.4-work
-docker pull devilbox/php-fpm:5.5-work
+#docker pull devilbox/php-fpm:5.3-work
+#docker pull devilbox/php-fpm:5.4-work
+#docker pull devilbox/php-fpm:5.5-work
 docker pull devilbox/php-fpm:5.6-work
 docker pull devilbox/php-fpm:7.0-work
 docker pull devilbox/php-fpm:7.1-work
@@ -36,9 +36,9 @@ docker pull devilbox/php-fpm:7.2-work
 ###
 TAG="$( grep '^[[:space:]]*image:.*\${HTTPD_SERVER' "${CWD}/docker-compose.yml" | sed 's/^.*://g' )"
 docker pull devilbox/nginx-stable:${TAG}
-docker pull devilbox/nginx-mainline:${TAG}
+#docker pull devilbox/nginx-mainline:${TAG}
 docker pull devilbox/apache-2.2:${TAG}
-docker pull devilbox/apache-2.4:${TAG}
+#docker pull devilbox/apache-2.4:${TAG}
 
 ###
 ### MYSQL
@@ -48,8 +48,6 @@ TAG="$( grep '^[[:space:]]*image:.*\${MYSQL_SERVER' "${CWD}/docker-compose.yml" 
 docker pull cytopia/mysql-5.6:${TAG}
 docker pull cytopia/mysql-5.7:${TAG}
 docker pull cytopia/mysql-8.0:${TAG}
-#docker pull cytopia/mysql-5.7:${TAG}
-#docker pull cytopia/mysql-8.0:${TAG}
 #docker pull cytopia/mariadb-5.5:${TAG}
 docker pull cytopia/mariadb-10.0:${TAG}
 docker pull cytopia/mariadb-10.1:${TAG}
@@ -77,7 +75,6 @@ docker pull postgres:10.3
 #docker pull redis:3.0
 #docker pull redis:3.2
 docker pull redis:4.0
-#docker pull redis:4.0
 
 ###
 ### MEMCACHED
