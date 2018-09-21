@@ -114,6 +114,7 @@ docker-compose.override.yml
 ###### std ######
 .lock
 *.log
+*.logs
 
 ###### patches/diffs ######
 *.patch
