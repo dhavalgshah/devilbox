@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -eu
 #
 # This script will pull all Docker images that are currently
 # bound to your devilbox git state.
@@ -7,16 +7,40 @@
 # in order to download all images locally.
 #
 
+WHICH="all"
+if [ "${#}" -eq "1" ]; then
+	if [ "${1}" = "bind" ]; then
+		WHICH="bind"
+	elif [ "${1}" = "php" ]; then
+		WHICH="php"
+	elif [ "${1}" = "httpd" ]; then
+		WHICH="httpd"
+	elif [ "${1}" = "mysql" ]; then
+		WHICH="mysql"
+	elif [ "${1}" = "rest" ]; then
+		WHICH="rest"
+	else
+		echo "Error: Unknown option"
+		echo "Supported: php, httpd, mysql, rest"
+		exit 1
+	fi
+fi
+
+
 ###
 ### Path of devilbox repository
 ###
 CWD="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+
 ###
-### DNS
+### BIND
 ###
-TAG="$( grep '^[[:space:]]*image:[[:space:]]*cytopia/bind' "${CWD}/docker-compose.yml" | sed 's/^.*://g' )"
-docker pull cytopia/bind:${TAG}
+if [ "${WHICH}" = "all" ] || [ "${WHICH}" = "bind" ]; then
+	TAG="$( grep '^[[:space:]]*image:[[:space:]]*cytopia/bind' "${CWD}/docker-compose.yml" | sed 's/^.*://g' )"
+	docker pull cytopia/bind:${TAG}
+fi
+
 
 ###
 ### PHP
@@ -30,6 +54,14 @@ docker pull devilbox/php-fpm:7.0-work
 docker pull devilbox/php-fpm:7.1-work
 docker pull devilbox/php-fpm:7.2-work
 #docker pull cytopia/hhvm-latest:${TAG}
+if [ "${WHICH}" = "all" ] || [ "${WHICH}" = "php" ]; then
+	SUFFIX="$( grep -E '^\s+image:\s+devilbox/php-fpm' "${CWD}/docker-compose.yml" | sed 's/.*}//g' )"
+	IMAGES="$( grep -Eo '^#*PHP_SERVER=[.0-9]+' "${CWD}/env-example" | sed 's/.*=//g' )"
+	echo "${IMAGES}" | while read version ; do
+		docker pull devilbox/php-fpm:${version}${SUFFIX}
+	done
+fi
+
 
 ###
 ### HTTPD
@@ -39,6 +71,13 @@ docker pull devilbox/nginx-stable:${TAG}
 #docker pull devilbox/nginx-mainline:${TAG}
 docker pull devilbox/apache-2.2:${TAG}
 #docker pull devilbox/apache-2.4:${TAG}
+if [ "${WHICH}" = "all" ] || [ "${WHICH}" = "httpd" ]; then
+	SUFFIX="$( grep -E '^\s+image:\s+devilbox/\${HTTPD_SERVER' "${CWD}/docker-compose.yml" | sed 's/.*://g' )"
+	IMAGES="$( grep -Eo '^#*HTTPD_SERVER=[-a-z]+[.0-9]*' "${CWD}/env-example" | sed 's/.*=//g' )"
+	echo "${IMAGES}" | while read version ; do
+		docker pull devilbox/${version}:${SUFFIX}
+	done
+fi
 
 ###
 ### MYSQL
@@ -55,7 +94,7 @@ docker pull cytopia/mariadb-10.1:${TAG}
 #docker pull cytopia/mariadb-10.3:${TAG}
 
 ###
-### PGSQL
+### MYSQL
 ###
 #docker pull postgres:9.1
 #docker pull postgres:9.2
@@ -67,6 +106,13 @@ docker pull cytopia/mariadb-10.1:${TAG}
 #docker pull postgres:10.1
 #docker pull postgres:10.2
 docker pull postgres:10.3
+if [ "${WHICH}" = "all" ] || [ "${WHICH}" = "mysql" ]; then
+	SUFFIX="$( grep -E '^\s+image:\s+cytopia/\${MYSQL_SERVER' "${CWD}/docker-compose.yml" | sed 's/.*://g' )"
+	IMAGES="$( grep -Eo '^#*MYSQL_SERVER=[-a-z]+[.0-9]*' "${CWD}/env-example" | sed 's/.*=//g' )"
+	echo "${IMAGES}" | while read version ; do
+		docker pull cytopia/${version}:${SUFFIX}
+	done
+fi
 
 ###
 ### REDIS
@@ -77,7 +123,7 @@ docker pull postgres:10.3
 docker pull redis:4.0
 
 ###
-### MEMCACHED
+### Rest of the fucking owl
 ###
 #docker pull memcached:1.4.21
 #docker pull memcached:1.4.22
@@ -109,6 +155,7 @@ docker pull memcached:1.5.4
 
 ###
 ### MONGODB
+### For all other non-base service, only download the currently enabled one
 ###
 #docker pull mongo:2.8
 #docker pull mongo:3.0
@@ -118,3 +165,9 @@ docker pull memcached:1.5.4
 #docker pull mongo:3.6
 #docker pull mongo:3.7
 
+if [ "${WHICH}" = "all" ] || [ "${WHICH}" = "rest" ]; then
+	if [ ! -f "${CWD}/.env" ]; then
+		cp "${CWD}/env-example" "${CWD}/.env"
+	fi
+	docker-compose --project-directory "${CWD}" --file "${CWD}/docker-compose.yml" pull
+fi

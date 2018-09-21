@@ -5,13 +5,12 @@ Create your first project
 *************************
 
 .. important::
-    Ensure you have read :ref:`getting_started_directory_overview` to understand what is
-    going on under the hood.
+   Ensure you have read :ref:`getting_started_directory_overview` to understand what is
+   going on under the hood.
 
 .. note::
-
-     This section not only applies for one project, it applied for as many projects as you need.
-     **There is no limit in the number of projects.**
+   This section not only applies for one project, it applied for as many projects as you need.
+   **There is no limit in the number of projects.**
 
 
 **Table of Contents**
@@ -22,11 +21,14 @@ Create your first project
 Step 1: visit Intranet vhost page
 =================================
 
-Before starting, have a look at the vhost page at http://localhost/vhosts.php
+Before starting, have a look at the vhost page at http://localhost/vhosts.php or
+http://127.0.0.1/vhosts.php
+
+.. seealso:: :ref:`howto_find_docker_toolbox_ip_address`
 
 It should look like the screenshot below and will actually already provide the information needed to create a new project.
 
-.. image:: /_static/img/devilbox-vhosts-empty.png
+.. include:: /_includes/figures/devilbox/devilbox-intranet-vhosts-empty.rst
 
 
 Step 2: create a project directory
@@ -35,8 +37,8 @@ Step 2: create a project directory
 In your Devilbox git directory, navigate to ``./data/www`` and create a new directory.
 
 .. note::
-     Choose the directory name wisely, as it will be part of the domain for that project.
-     For this example we will use ``project-1`` as our project name.
+   Choose the directory name wisely, as it will be part of the domain for that project.
+   For this example we will use ``project-1`` as our project name.
 
 .. code-block:: bash
 
@@ -51,7 +53,7 @@ In your Devilbox git directory, navigate to ``./data/www`` and create a new dire
 
 Visit the vhost page again and see what has changed: http://localhost/vhosts.php
 
-.. image:: /_static/img/devilbox-vhosts-directory.png
+.. include:: /_includes/figures/devilbox/devilbox-intranet-vhosts-missing-htdocs.rst
 
 **So what has happened?**
 
@@ -62,7 +64,7 @@ Step 3: create a docroot directory
 ==================================
 
 .. note::
-     As desribed in :ref:`getting_started_directory_overview_docroot` the docroot directory name must be ``htdocs`` for now.
+   As desribed in :ref:`getting_started_directory_overview_docroot` the docroot directory name must be ``htdocs`` for now.
 
 Navigate to your newly created project directory and create a directory named `htdocs` inside it.
 
@@ -79,16 +81,17 @@ Navigate to your newly created project directory and create a directory named `h
 
 Vist the vhost page again and see what has changed: http://localhost/vhosts.php
 
-.. image:: /_static/img/devilbox-vhosts-dns.png
+.. include:: /_includes/figures/devilbox/devilbox-intranet-vhosts-missing-dns.rst
 
 **So what has happened?**
 
-By having created the docroot directory, the web server is now able to serve your files. However it has noticed, that you have no way yet, to actually visit your project url, as no DNS record for it exists yet.
+By having created the docroot directory, the web server is now able to serve your files. However
+it has noticed, that you have no way yet, to actually visit your project url, as no DNS record for
+it exists yet.
 
-The intranet already gives you the exact string that you can simply copy into your ``/etc/hosts`` file on your host operating system to solve this issue.
-
-.. important::
-     This will only work on **native Docker** for Linux or MacOS. Read up on the next section to also find out how to do that on **Docker Toolbox** and Windows.
+The intranet already gives you the exact string that you can simply copy into your ``/etc/hosts``
+(or ``C:\Windows\System32\drivers\etc`` for Windows) file on your host operating system to solve
+this issue.
 
 
 .. _getting_started_create_your_first_project_dns_entry:
@@ -97,71 +100,30 @@ Step 4: create a DNS entry
 ==========================
 
 .. note::
-     This step can also be automated via the bundled DNS server to automatically provide catch-all
-     DNS entries to your host computer, but is outside the scope of this
-     *getting started tutorial*.
+   This step can also be automated via the bundled DNS server to automatically provide catch-all
+   DNS entries to your host computer, but is outside the scope of this
+   *getting started tutorial*.
 
-Add DNS for Linux and MacOS (native Docker)
--------------------------------------------
-
-On Linux and MacOS (when using the native Docker), this step is fairly simple. The intranet provides
-you the exact string you need to paste into your ``/etc/hosts`` file on your host operating system.
+When using native Docker, the Devilbox intranet will provide you the exact string you need to paste
+into your ``/etc/hosts`` (or ``C:\Windows\System32\drivers\etc`` for Windows).
 
 .. code-block:: bash
 
-    # Open your /etc/hosts file with sudo or root privileges
-    # and add the following DNS entry
-    host> sudo vi /etc/hosts
+   # Open your /etc/hosts file with sudo or root privileges
+   # and add the following DNS entry
+   host> sudo vi /etc/hosts
 
-    127.0.0.1 project-1.loc
+   127.0.0.1 project-1.loc
 
-Add DNS for Windows (native Docker)
------------------------------------
+.. seealso::
 
-On Windows (when using the native Docker), you can also copy paste the command provided by the intranet,
-however the destination file is different. You have to add this string into: ``C:\Windows\System32\drivers\etc``.
+   * :ref:`howto_add_project_hosts_entry_on_mac`
+   * :ref:`howto_add_project_hosts_entry_on_win`
 
-Open ``C:\Windows\System32\drivers\etc`` with admistrative privileges and add the following entry
-
-.. code-block:: bash
-
-    127.0.0.1 project-1.loc
-
-Add DNS for Docker Toolbox
---------------------------
-
-When using ``Docker Toolbox`` the Devilbox runs inside a virtual machine and therefore the Webserver port (``80``)
-is not exposed to your host operating system. So your DNS record must point to the virtual machine instead of your
-host system.
-
-1. Find out the IP address the virtual machine is running on
-2. Add a DNS entry to your host operating system for this IP address.
-
-For the sake of this example, let's assume the virtual machine is running on ``192.16.0.1``, then the DNS record you will
-have to add instead on your host operating system is:
-
-**Docker Toolbox on MacOS**
-
-.. code-block:: bash
-
-    host> sudo vi /etc/hosts
-
-    192.16.0.1 project-1.loc
-
-**Docker Toolbox on Windows**
-
-Open ``C:\Windows\System32\drivers\etc`` with admistrative privileges and add the following entry
-
-.. code-block:: bash
-
-    192.16.0.1 project-1.loc
-
-Back to intranet
-----------------
 
 Vist the vhost page again and see what has changed: http://localhost/vhosts.php
 
-.. image:: /_static/img/devilbox-vhosts-finished.png
+.. include:: /_includes/figures/devilbox/devilbox-intranet-vhosts-working.rst
 
 **So what has happened?**
 
@@ -169,13 +131,13 @@ By having created the DNS record, the Devilbox intranet is aware that everything
 gives you a link to your new project.
 
 
-Step 5: Visit your project
+Step 5: visit your project
 ==========================
 
 On the intranet, click on your project link. This will open your project in a new Browser tab or
 visit http://project-1.loc
 
-.. image:: /_static/img/devilbox-project-no-files.png
+.. include:: /_includes/figures/devilbox/devilbox-project-missing-index.rst
 
 **So what has happened?**
 
@@ -184,8 +146,8 @@ Everything is setup now, however the webserver is trying to find a ``index.php``
 So all is left for you to do is to add your HTML or PHP files.
 
 
-Step 6: Create a hello world
-============================
+Step 6: create a hello world file
+=================================
 
 Navigate to your docroot directory within your project and create a ``index.php`` file with some output.
 
@@ -208,7 +170,7 @@ Alternatively create an ``index.php`` file in ``data/www/project-1/htdocs`` with
 
 Visit your project url again and see what has changed: http://project-1.loc
 
-.. image:: /_static/img/devilbox-project-hello-world.png
+.. include:: /_includes/figures/devilbox/devilbox-project-hello-world.rst
 
 
 Checklist
@@ -218,3 +180,39 @@ Checklist
 2. Docroot directory is created
 3. DNS entry is added to the host operating system
 4. PHP files are added to your docroot directory
+
+.. seealso:: :ref:`troubleshooting`
+
+
+Further examples
+================
+
+If you already want to know how to setup specific frameworks on the Devilbox, jump directly to
+their articles:
+
+.. seealso::
+
+   **Well tested frameworks on the Devilbox**
+
+   * :ref:`example_setup_cakephp`
+   * :ref:`example_setup_codeigniter`
+   * :ref:`example_setup_craftcms`
+   * :ref:`example_setup_drupal`
+   * :ref:`example_setup_joomla`
+   * :ref:`example_setup_laravel`
+   * :ref:`example_setup_magento`
+   * :ref:`example_setup_phalcon`
+   * :ref:`example_setup_photon_cms`
+   * :ref:`example_setup_presta_shop`
+   * :ref:`example_setup_shopware`
+   * :ref:`example_setup_symfony`
+   * :ref:`example_setup_typo3`
+   * :ref:`example_setup_wordpress`
+   * :ref:`example_setup_yii`
+   * :ref:`example_setup_zend`
+
+.. seealso::
+
+   **Generic information for all unlisted frameworks**
+
+   * :ref:`example_setup_other_frameworks`

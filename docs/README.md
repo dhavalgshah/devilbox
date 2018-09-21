@@ -23,15 +23,18 @@ You can also build the documentation locally before pushing to ensure everything
 sudo pip install sphinx sphinx-autobuild
 sudo pip install sphinx_rtd_theme
 ```
-
-#### How to build
+#### How to build and error-check
 ```
 cd docs/
-sphinx-autobuild . _build/html
+make build
+```
+
+#### How to build continuously
+```
+cd docs/
+make autobuild
 ```
 
 #### How to view
 
-Open you browser on http://127.0.0.1:8000
-
-
+When using `make autobuild` your documentation is served at: http://127.0.0.1:8000

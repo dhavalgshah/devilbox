@@ -1,3 +1,5 @@
+.. include:: /_includes/all.rst
+
 .. _env_file:
 
 *********
@@ -5,10 +7,13 @@
 *********
 
 All docker-compose configuration is done inside the ``.env`` file which simply defines key-value
-variables parsed to docker-compose.yml.
+pairs evaluated by docker-compose.yml.
 
-.. note::
-   what is the `.env <https://docs.docker.com/compose/env-file/>`_ file?
+If this file does not exist at the root of your Devilbox git directory, then copy ``env-example``
+to ``.env`` to initially create it with sane defaults.
+
+.. seealso::
+   what is the |ext_lnk_docker_compose_env| file?
 
 .. note::
    Use your browsers search function to quickly find the desired variable name.
@@ -62,61 +67,61 @@ The ``./log/`` directory itself will contain subdirectories in the form ``<servi
 which will then hold all available log files.
 
 .. note::
-    Log directories do not exist until you start the Devilbox and will only be created for
-    the service versions you have enabled in ``.env``.
+   Log directories do not exist until you start the Devilbox and will only be created for
+   the service versions you have enabled in ``.env``.
 
 The log directory structure would look something like this:
 
 .. code-block:: bash
 
-    host> cd path/to/devilbox
-    host> tree log
+   host> cd path/to/devilbox
+   host> tree log
 
-    log/
-    ├── nginx-stable/
-    │   ├── nginx-stable/
-    │   ├── defaultlocalhost-access.log
-    │   ├── defaultlocalhost-error.log
-    │   ├── <project-name>-access.log    # Each project has its own access log
-    │   ├── <project-name>-error.log     # Each project has its own error log
-    ├── mariadb-10.1/
-    │   ├── error.log
-    │   ├── query.log
-    │   ├── slow.log
-    ├── php-fpm-7.1/
-    │   ├── php-fpm.access
-    │   ├── php-fpm.error
+   log/
+   ├── nginx-stable/
+   │   ├── nginx-stable/
+   │   ├── defaultlocalhost-access.log
+   │   ├── defaultlocalhost-error.log
+   │   ├── <project-name>-access.log    # Each project has its own access log
+   │   ├── <project-name>-error.log     # Each project has its own error log
+   ├── mariadb-10.1/
+   │   ├── error.log
+   │   ├── query.log
+   │   ├── slow.log
+   ├── php-fpm-7.1/
+   │   ├── php-fpm.access
+   │   ├── php-fpm.error
 
 When you want to read logs sent to Docker logs, you can do so via the following command:
 
 .. code-block:: bash
-    :emphasize-lines: 2
+   :emphasize-lines: 2
 
-    host> cd path/to/devilbox
-    host> docker-compose logs
+   host> cd path/to/devilbox
+   host> docker-compose logs
 
 When you want to continuously watch the log output (such as ``tail -f``), you need to append ``-f``
 to the command.
 
 .. code-block:: bash
-    :emphasize-lines: 2
+   :emphasize-lines: 2
 
-    host> cd path/to/devilbox
-    host> docker-compose logs -f
+   host> cd path/to/devilbox
+   host> docker-compose logs -f
 
 When you only want to have logs displayed for a single service, you can also append the service
 name (works with or without ``-f`` as well):
 
 .. code-block:: bash
-    :emphasize-lines: 2
+   :emphasize-lines: 2
 
-    host> cd path/to/devilbox
-    host> docker-compose logs php -f
+   host> cd path/to/devilbox
+   host> docker-compose logs php -f
 
 .. important::
-    Currently this is only implemented for PHP-FPM and HTTPD Docker container.
-    MySQL will always output its logs to file and all other official Docker container
-    always output to Docker logs.
+   Currently this is only implemented for PHP-FPM and HTTPD Docker container.
+   MySQL will always output its logs to file and all other official Docker container
+   always output to Docker logs.
 
 
 DEVILBOX_PATH
@@ -218,32 +223,31 @@ this project visible to everyone in your corporate LAN.
 +-------------+----------------+---------------------------+
 | www.test    | ``local``      | ``http://www.test.local`` |
 +-------------+----------------+---------------------------+
-| my-test     | ``net``        | ``http://my-test.net``    |
-+-------------+----------------+---------------------------+
-| example     | ``com``        | ``http://example.com``    |
-+-------------+----------------+---------------------------+
-| www.test    | ``org``        | ``http://www.test.org``   |
-+-------------+----------------+---------------------------+
 
 .. warning::
-    Do not use ``dev`` as a domain suffix (I know, it's tempting).
-    It has been registered by
-    `Google <https://icannwiki.org/.dev>`_ and they advertise the
-    `HSTS header <https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>`_
-    which makes your browser redirect every http request to https.
+   Do not use ``dev`` as a domain suffix (I know, it's tempting).
+   It has been registered by
+   |ext_lnk_domain_dev| and they advertise the |ext_lnk_ssl_wiki_hsts|
+   which makes your browser redirect every http request to https.
 
-    **See also:** `This blog post <https://ma.ttias.be/chrome-force-dev-domains-https-via-preloaded-hsts>`_
+   **See also:** |ext_lnk_ssl_blog_chrome_dev_hsts|
 
 .. warning::
-    Do not use ``localhost`` as a domain suffix.
-    There is an RFC draft to make sure all localhost requests, including their sub domains
-    should be redirected to the systems loopback interface.
-    Docker has already released a commit preventing the use of ``localhost`` on MacOS.
+   Do not use ``localhost`` as a domain suffix.
+   There is an RFC draft to make sure all localhost requests, including their sub domains
+   should be redirected to the systems loopback interface.
+   Docker has already released a commit preventing the use of ``localhost`` on MacOS.
 
+   **See also:** |ext_lnk_domain_rfc_localhost| and |ext_lnk_domain_docker_rel_notes_localhost|
 
-    **See also:** `RFC Draft <https://tools.ietf.org/html/draft-west-let-localhost-be-localhost-06>`_
-    and
-    `Docker Release notes <https://docs.docker.com/docker-for-mac/release-notes/#docker-community-edition-17120-ce-mac46-2018-01-09>`_
+.. warning::
+   **Do not use official domain endings** such as ``.com``, ``.org``, ``.net``, etc.
+   If you do, all name resolutions to any ``.com`` address (e.g.: google.com) will be resolved
+   to the Devilbox's PHP server IP address.
+
+   The bundled DNS server does a catch-all on the given TLD_SUFFIX and resolves everything
+   below it to the PHP container.
+
 
 .. _env_extra_hosts:
 
@@ -269,13 +273,13 @@ The general structure to add extra hosts looks like this
 
 .. code-block:: bash
 
-    # Single host
-    EXTRA_HOSTS='hostname=1.1.1.1'
-    EXTRA_HOSTS='hostname=CNAME'
+   # Single host
+   EXTRA_HOSTS='hostname=1.1.1.1'
+   EXTRA_HOSTS='hostname=CNAME'
 
-    # Multiple hosts
-    EXTRA_HOSTS='hostname1=1.1.1.1,hostname2=2.2.2.2'
-    EXTRA_HOSTS='hostname1=CNAME1,hostname2=CNAME2'
+   # Multiple hosts
+   EXTRA_HOSTS='hostname1=1.1.1.1,hostname2=2.2.2.2'
+   EXTRA_HOSTS='hostname1=CNAME1,hostname2=CNAME2'
 
 * The left side represents the name by which the host will be available by
 * The right side represents the IP address by which the new name will resolve to
@@ -285,34 +289,34 @@ A few examples for adding extra hosts:
 
 .. code-block:: bash
 
-    # 1. One entry:
-    # The following extra host 'loc' is added and will always point to 192.168.0.7.
-    # When reverse resolving '192.168.0.7' it will answer with 'tld'.
-    EXTRA_HOSTS='loc=192.168.0.7'
+   # 1. One entry:
+   # The following extra host 'loc' is added and will always point to 192.168.0.7.
+   # When reverse resolving '192.168.0.7' it will answer with 'tld'.
+   EXTRA_HOSTS='loc=192.168.0.7'
 
-    # 2. One entry:
-    # The following extra host 'my.host.loc' is added and will always point to 192.168.0.9.
-    # When reverse resolving '192.168.0.9' it will answer with 'my.host'.
-    EXTRA_HOSTS='my.host.loc=192.168.0.9'
+   # 2. One entry:
+   # The following extra host 'my.host.loc' is added and will always point to 192.168.0.9.
+   # When reverse resolving '192.168.0.9' it will answer with 'my.host'.
+   EXTRA_HOSTS='my.host.loc=192.168.0.9'
 
-    # 3. Two entries:
-    # The following extra host 'tld' is added and will always point to 192.168.0.1.
-    # When reverse resolving '192.168.0.1' it will answer with 'tld'.
-    # A second extra host 'example.org' is added and always redirects to 192.168.0.2
-    # When reverse resolving '192.168.0.2' it will answer with 'example.org'.
-    EXTRA_HOSTS='tld=192.168.0.1,example.org=192.168.0.2'
+   # 3. Two entries:
+   # The following extra host 'tld' is added and will always point to 192.168.0.1.
+   # When reverse resolving '192.168.0.1' it will answer with 'tld'.
+   # A second extra host 'example.org' is added and always redirects to 192.168.0.2
+   # When reverse resolving '192.168.0.2' it will answer with 'example.org'.
+   EXTRA_HOSTS='tld=192.168.0.1,example.org=192.168.0.2'
 
-    # 4. Using CNAME's for resolving:
-    # The following extra host 'my.host' is added and will always point to whatever
-    # IP example.org resolves to.
-    # When reverse resolving '192.168.0.1' it will answer with 'my.host'.
-    EXTRA_HOSTS='my.host=example.org'
+   # 4. Using CNAME's for resolving:
+   # The following extra host 'my.host' is added and will always point to whatever
+   # IP example.org resolves to.
+   # When reverse resolving '192.168.0.1' it will answer with 'my.host'.
+   EXTRA_HOSTS='my.host=example.org'
 
 .. seealso::
 
-    This resembles the feature of `Docker Compose: extra_hosts <https://docs.docker.com/compose/compose-file/#external_links>`_ to add external links.
+   This resembles the feature of |ext_lnk_docker_compose_extra_hosts| to add external links.
 
-.. seealso:: :ref:`communicating_with_external_hosts`
+.. seealso:: :ref:`connect_to_external_hosts`
 
 
 .. _env_new_uid:
@@ -329,8 +333,8 @@ How do you find out your user id?
 
 .. code-block:: bash
 
-    host> id -u
-    1000
+   host> id -u
+   1000
 
 In most cases (on Linux and MacOS), this will be ``1000`` if you are the first and only user on
 your system, however it could also be a different value.
@@ -363,8 +367,8 @@ How do you find out your group id?
 
 .. code-block:: bash
 
-    host> id -g
-    1000
+   host> id -g
+   1000
 
 In most cases (on Linux and MacOS), this will be ``1000`` if you are the first and only user on
 your system, however it could also be a different value.
@@ -395,7 +399,7 @@ This is especially useful to keep PHP and database timezones in sync.
 | ``TIMEZONE``          | valid timezone | ``Europe/Berlin`` |
 +-----------------------+----------------+-------------------+
 
-Have a look at Wikipedia to get a list of valid timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+Have a look at Wikipedia to get a list of valid timezones: |ext_lnk_doc_wiki_database_timezones|
 
 .. note::
    It is always a good practice not to assume a specific timezone anyway and store all values
@@ -450,7 +454,7 @@ hostname.
 * ``DEVILBOX_UI_SSL_CN=localhost,*.localhost,devilbox,*.devilbox``
 * ``DEVILBOX_UI_SSL_CN=intranet.example.com``
 
-.. seealso:: :ref:`configuration_https_ssl`
+.. seealso:: :ref:`setup_valid_https`
 
 
 .. _env_devilbox_ui_protect:
@@ -524,21 +528,28 @@ PHP_SERVER
 
 This variable choses your desired PHP-FPM version to be started.
 
-+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
-| Name                    | Allowed values                                                                                                                                | Default value   |
-+=========================+===============================================================================================================================================+=================+
-| ``PHP_SERVER``          | ``php-fpm-5.3`` |br| ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` | ``php-fpm-7.1`` |
-+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
++-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Name                    | Allowed values                                                                                                                                                                          | Default value   |
++=========================+=========================================================================================================================================================================================+=================+
+| ``PHP_SERVER``          | ``php-fpm-5.2`` |br| ``php-fpm-5.3`` |br| ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` |br| ``php-fpm-7.3`` | ``php-fpm-7.1`` |
++-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+
+.. important::
+   **PHP 5.2** is available to use, but it is not officially supported. The Devilbox intranet does
+   not work with this version as PHP 5.2 does not support namespaces. Furthermore PHP 5.2 does only
+   work with Apache 2.4, Nginx stable and Nginx mainline. It does not work with Apache 2.2.
+   **Use at your own risk.**
+
 
 All values are already available in the ``.env`` file and just need to be commented or uncommented. If multiple values are uncommented, the last uncommented variable one takes precedences:
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
-   :emphasize-lines: 7
+   :emphasize-lines: 9
 
    host> grep PHP_SERVER .env
 
+   #PHP_SERVER=php-fpm-5.2
    #PHP_SERVER=php-fpm-5.3
    #PHP_SERVER=php-fpm-5.4
    #PHP_SERVER=php-fpm-5.5
@@ -546,6 +557,7 @@ All values are already available in the ``.env`` file and just need to be commen
    #PHP_SERVER=php-fpm-7.0
    PHP_SERVER=php-fpm-7.1
    #PHP_SERVER=php-fpm-7.2
+   #PHP_SERVER=php-fpm-7.3
 
 
 .. _env_httpd_server:
@@ -565,7 +577,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 5
 
    host> grep HTTPD_SERVER .env
@@ -593,7 +604,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 9
 
    host> grep MYSQL_SERVER .env
@@ -629,7 +639,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 8
 
    host> grep PGSQL_SERVER .env
@@ -645,7 +654,7 @@ All values are already available in the ``.env`` file and just need to be commen
 .. note::
    This is the official PostgreSQL server which might already have other tags available,
    check their official website for even more versions.
-   https://hub.docker.com/_/postgres/
+   |ext_lnk_docker_image_postgres|
 
 
 .. _env_redis_server:
@@ -665,7 +674,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 6
 
    host> grep REDIS_SERVER .env
@@ -678,7 +686,7 @@ All values are already available in the ``.env`` file and just need to be commen
 .. note::
    This is the official Redis server which might already have other tags available,
    check their official website for even more versions.
-   https://hub.docker.com/_/redis/
+   |ext_lnk_docker_image_redis|
 
 
 .. _env_memcd_server:
@@ -698,7 +706,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 24
 
    host> grep MEMCD_SERVER .env
@@ -730,7 +737,7 @@ All values are already available in the ``.env`` file and just need to be commen
 .. note::
    This is the official Memcached server which might already have other tags available,
    check their official website for even more versions.
-   https://hub.docker.com/_/memcached/
+   |ext_lnk_docker_image_memcached|
 
 
 .. _env_mongo_server:
@@ -750,7 +757,6 @@ All values are already available in the ``.env`` file and just need to be commen
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 6
 
    host> grep MONGO_SERVER .env
@@ -764,7 +770,7 @@ All values are already available in the ``.env`` file and just need to be commen
 .. note::
    This is the official MongoDB server which might already have other tags available,
    check their official website for even more versions.
-   https://hub.docker.com/_/mongo/
+   |ext_lnk_docker_image_mongodb|
 
 
 Docker host mounts
@@ -780,6 +786,40 @@ downloading libraries with ``composer`` and others.
 
 Being able to do that on both sides, removes the need to install any development tools (except your
 IDE/editor) on your host and have everything fully encapsulated into the containers itself.
+
+.. _env_mount_options:
+
+MOUNT_OPTIONS
+-------------
+
+This variable allows you to add custom mount options/flags to all mounted directories.
+Initially only ``rw`` or ``ro`` are applied to mount points, you can however extend this
+before starting up the Devilbox.
+
+
++------------------------------+--------------------+----------------+
+| Name                         | Allowed values     | Default value  |
++==============================+====================+================+
+| ``MOUNT_OPTIONS``            | valid mount option | empty          |
++------------------------------+--------------------+----------------+
+
+If you are on Linux with SELinux enabled, you will want to set this value to ``,z`` to modify
+SELinux labels in order to share mounts among multiple container.
+
+.. seealso::
+   * |ext_lnk_docker_bind_propagation|
+   * |ext_lnk_docker_selinux_label|
+   * |ext_lnk_docker_mount_z_flag|
+
+.. important::
+   When adding custom mount options, ensure to start with a leading ``,``, as those options
+   are prepended to already existing options.
+
+   .. code-block:: bash
+
+      MOUNT_OPTIONS=,z
+      MOUNT_OPTIONS=,cached
+
 
 
 .. _env_httpd_datadir:
@@ -813,9 +853,8 @@ like this:
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
 
-    HOST_PATH_HTTPD_DATADIR=/home/myuser/workspace/web
+   HOST_PATH_HTTPD_DATADIR=/home/myuser/workspace/web
 
 Mapping
 ^^^^^^^
@@ -861,18 +900,18 @@ The directory structure will look something like this:
 
 .. code-block:: bash
 
-    host> ls -l ./data/mysql/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.0/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.1/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.2/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.3/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.5/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.6/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.7/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-8.0/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.5/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.6/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.7/
+   host> ls -l ./data/mysql/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.0/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.1/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.2/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mariadb-10.3/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.5/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.6/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-5.7/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 mysql-8.0/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.5/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.6/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 percona-5.7/
 
 .. warning::
    :ref:`remove_stopped_container`
@@ -907,13 +946,13 @@ The directory structure will look something like this:
 
 .. code-block:: bash
 
-    host> ls -l ./data/pgsql/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.1/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.2/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.3/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.4/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.5/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.6/
+   host> ls -l ./data/pgsql/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.1/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.2/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.3/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.4/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.5/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 9.6/
 
 .. warning::
    :ref:`remove_stopped_container`
@@ -948,12 +987,12 @@ The directory structure will look something like this:
 
 .. code-block:: bash
 
-    host> ls -l ./data/mongo/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 2.8/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.0/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.2/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.4/
-    drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.5/
+   host> ls -l ./data/mongo/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 2.8/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.0/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.2/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.4/
+   drwxrwxr-x 6 48 48 4096 Jun 21 08:47 3.5/
 
 .. warning::
    :ref:`remove_stopped_container`
@@ -975,13 +1014,13 @@ Open a terminal and type the following:
 
 .. code-block:: bash
 
-    host> netstat -an | grep 'LISTEN\s'
-    tcp        0      0 127.0.0.1:53585    0.0.0.0:*     LISTEN
-    tcp        0      0 127.0.0.1:37715    0.0.0.0:*     LISTEN
-    tcp        0      0 127.0.0.1:58555    0.0.0.0:*     LISTEN
-    tcp        0      0 127.0.0.1:48573    0.0.0.0:*     LISTEN
-    tcp        0      0 127.0.0.1:34591    0.0.0.0:*     LISTEN
-    tcp        0      0 127.0.0.1:8000     0.0.0.0:*     LISTEN
+   host> netstat -an | grep 'LISTEN\s'
+   tcp        0      0 127.0.0.1:53585    0.0.0.0:*     LISTEN
+   tcp        0      0 127.0.0.1:37715    0.0.0.0:*     LISTEN
+   tcp        0      0 127.0.0.1:58555    0.0.0.0:*     LISTEN
+   tcp        0      0 127.0.0.1:48573    0.0.0.0:*     LISTEN
+   tcp        0      0 127.0.0.1:34591    0.0.0.0:*     LISTEN
+   tcp        0      0 127.0.0.1:8000     0.0.0.0:*     LISTEN
 
 **How to list used ports on Windows**
 
@@ -989,15 +1028,15 @@ Open the command prompt and type the following:
 
 .. code-block:: bash
 
-    C:\WINDOWS\system32> netstat -an
-    Proto  Local Address       Foreign Address      State
-    TCP    0.0.0.0:80          0.0.0.0:0            LISTENING
-    TCP    0.0.0.0:145         0.0.0.0:0            LISTENING
-    TCP    0.0.0.0:445         0.0.0.0:0            LISTENING
-    TCP    0.0.0.0:1875        0.0.0.0:0            LISTENING
+   C:\WINDOWS\system32> netstat -an
+   Proto  Local Address       Foreign Address      State
+   TCP    0.0.0.0:80          0.0.0.0:0            LISTENING
+   TCP    0.0.0.0:145         0.0.0.0:0            LISTENING
+   TCP    0.0.0.0:445         0.0.0.0:0            LISTENING
+   TCP    0.0.0.0:1875        0.0.0.0:0            LISTENING
 
 .. warning::
-   :ref:`docker_toolbox`
+   :ref:`howto_docker_toolbox_and_the_devilbox`
       When using Docker Toobox ensure that ports are exposed to all interfaces.
       See :ref:`env_local_listen_addr`
 
@@ -1005,6 +1044,8 @@ Open the command prompt and type the following:
    Before setting the ports, ensure that they are not already in use on your host operating
    system by other services.
 
+
+.. _env_host_port_httpd:
 
 HOST_PORT_HTTPD
 ---------------
@@ -1018,6 +1059,7 @@ else if 80 is already in use on your host operating system.
 | ``HOST_PORT_HTTPD``  | ``1`` - ``65535`` | ``80``           |
 +----------------------+-------------------+------------------+
 
+.. _env_host_port_httpd_ssl:
 
 HOST_PORT_HTTPD_SSL
 -------------------
@@ -1028,7 +1070,7 @@ The port to expose for the web server (Apache or Nginx) for HTTPS (SSL) requests
 +--------------------------+-------------------+------------------+
 | Name                     | Allowed values    | Default value    |
 +==========================+===================+==================+
-| ``HOST_PORT_HTTPD_SSL``  | ``1`` - ``65535`` | ``443``           |
+| ``HOST_PORT_HTTPD_SSL``  | ``1`` - ``65535`` | ``443``          |
 +--------------------------+-------------------+------------------+
 
 
@@ -1117,7 +1159,7 @@ to something else if ``53`` is already in use on your host operating system.
    on port ``53`` which would result in a failure when this BIND server is starting.
 
    You only need to set BIND to port ``53`` when you want to use the ``Auto-DNS`` feautre of the
-   Devilbox. When doing so, read this article with care: :ref:`global_configuration_auto_dns`.
+   Devilbox. When doing so, read this article with care: :ref:`setup_auto_dns`.
 
 
 Container settings
@@ -1125,6 +1167,53 @@ Container settings
 
 PHP
 ---
+
+.. _env_file_php_modules_enable:
+
+PHP_MODULES_ENABLE
+^^^^^^^^^^^^^^^^^^
+
+Enable any non-standard PHP modules in a comma separated list.
+
++------------------------+--------------------------------------+------------------+
+| Name                   | Allowed values                       | Default value    |
++========================+======================================+==================+
+| ``PHP_MODULES_ENABLE`` | comma separated list of module names | empty            |
++------------------------+--------------------------------------+------------------+
+
+.. note::
+   Currently only ``ioncube`` is available to enable.
+
+Example:
+
+.. code-block:: bash
+   :caption: .env
+   :emphasize-lines: 2
+
+   # Enable ionCube
+   PHP_MODULES_ENABLE=ioncube
+
+.. _env_file_php_modules_disable:
+
+PHP_MODULES_DISABLE
+^^^^^^^^^^^^^^^^^^^
+
+Disable any PHP modules in a comma separated list.
+
++-------------------------+--------------------------------------+------------------+
+| Name                    | Allowed values                       | Default value    |
++=========================+======================================+==================+
+| ``PHP_MODULES_DISABLE`` | comma separated list of module names | ``swoole``       |
++-------------------------+--------------------------------------+------------------+
+
+Example:
+
+.. code-block:: bash
+   :caption: .env
+   :emphasize-lines: 2
+
+   # Disable Xdebug, Imagick and Swoole
+   PHP_MODULES_DISABLE=xdebug,imagick,swoole
 
 Custom variables
 ^^^^^^^^^^^^^^^^
@@ -1138,7 +1227,6 @@ production, for example: ``APPLICATION_ENV``, you can just add this to the ``.en
 
 .. code-block:: bash
    :caption: .env
-   :name: .env
    :emphasize-lines: 3
 
    host> grep APPLICATION_ENV .env
@@ -1149,7 +1237,6 @@ Within your php application/file you can then access this variable via the ``get
 
 .. code-block:: php
    :caption: index.php
-   :name: index.php
    :emphasize-lines: 3
 
    <?php
@@ -1163,11 +1250,13 @@ This will then output ``development``.
 .. note::
    Add as many custom environment variables as you require.
 
-.. seealso:: :ref:`tutorial_custom_environment_variables`
+.. seealso:: :ref:`add_custom_environment_variables`
 
 
 Web server
 ----------
+
+.. _env_httpd_docroot_dir:
 
 HTTPD_DOCROOT_DIR
 ^^^^^^^^^^^^^^^^^
@@ -1211,15 +1300,15 @@ Let's have a look how the directory is actually built up:
 .. code-block:: bash
    :emphasize-lines: 4
 
-    # Project directory
-    host> ls -l data/www/my-first-project/
-    total 4
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
+   # Project directory
+   host> ls -l data/www/my-first-project/
+   total 4
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
 
-    # htdocs directory inside your project directory
-    host> ls -l data/www/my-first-project/htdocs
-    total 4
-    -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 index.php
+   # htdocs directory inside your project directory
+   host> ls -l data/www/my-first-project/htdocs
+   total 4
+   -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 index.php
 
 By calling your proect url, the ``index.php`` file will be served.
 
@@ -1234,21 +1323,20 @@ Let's have a look how the directory is actually built up:
 .. code-block:: bash
    :emphasize-lines: 5
 
-    # Project directory
-    host> ls -l data/www/my-first-project/
-    total 4
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 cakephp/
-    lrwxrwxrwx 1 cytopia cytopia   15 Mar 17 09:36 htdocs -> cakephp/webroot/
+   # Project directory
+   host> ls -l data/www/my-first-project/
+   total 4
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 cakephp/
+   lrwxrwxrwx 1 cytopia cytopia   15 Mar 17 09:36 htdocs -> cakephp/webroot/
 
-    # htdocs directory inside your project directory
-    host> ls -l data/www/my-first-project/htdocs
-    total 4
-    -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 index.php
+   # htdocs directory inside your project directory
+   host> ls -l data/www/my-first-project/htdocs
+   total 4
+   -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 index.php
 
 As you can see, the web server is still able to server the files from the ``htdocs`` location,
 this time however, ``htdocs`` itself is a symlink pointing to a much deeper and nested location
 inside an actual framework directory.
-
 
 .. _env_httpd_template_dir:
 
@@ -1274,10 +1362,10 @@ Let's have a look at an imaginary project directory called ``my-first-project``:
 
 .. code-block:: bash
 
-    # Project directory
-    host> ls -l data/www/my-first-project/
-    total 4
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
+   # Project directory
+   host> ls -l data/www/my-first-project/
+   total 4
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
 
 Inside this your project directory you will need to create another directory which is called
 ``.devilbox`` by default. If you change the ``HTTPD_TEMPLATE_DIR`` variable to something else,
@@ -1286,16 +1374,16 @@ you will have to create a directory by whatever name you chose for that variable
 .. code-block:: bash
    :emphasize-lines: 3,6
 
-    # Project directory
-    host> cd data/www/my-first-project/
-    host> mkdir .devilbox
-    host> ls -l
-    total 4
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 .devilbox/
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
+   # Project directory
+   host> cd data/www/my-first-project/
+   host> mkdir .devilbox
+   host> ls -l
+   total 4
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 .devilbox/
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
 
 Now you need to copy the ``vhost-gen`` templates into the ``.devilbox`` directory. The templates
-are available in the Devilbox git directory under ``templates/vhost-gen/``.
+are available in the Devilbox git directory under ``cfg/vhost-gen/``.
 
 By copying those files into your project template directory, nothing will change, these are the
 default templates that will create the virtual host exactly the same way as if they were not
@@ -1304,11 +1392,11 @@ present.
 .. code-block:: bash
    :emphasize-lines: 5
 
-    # Navigate into the devilbox directory
-    host> cd path/to/devilbox
+   # Navigate into the devilbox directory
+   host> cd path/to/devilbox
 
-    # Copy templates to your project directory
-    host> cp templates/vhost-gen/* data/www/my-first-project/.devilbox/
+   # Copy templates to your project directory
+   host> cp cfg/vhost-gen/*.yml data/www/my-first-project/.devilbox/
 
 
 Let's have a look how the directory is actually built up:
@@ -1316,35 +1404,62 @@ Let's have a look how the directory is actually built up:
 .. code-block:: bash
    :emphasize-lines: 4,8
 
-    # Project directory
-    host> ls -l data/www/my-first-project/
-    total 4
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 .devilbox/
-    drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
+   # Project directory
+   host> ls -l data/www/my-first-project/
+   total 4
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 .devilbox/
+   drwxr-xr-x 2 cytopia cytopia 4096 Mar 12 23:05 htdocs/
 
-    # template directory inside your project directory
-    host> ls -l data/www/my-first-project/htdocs/.devilbox
-    total 4
-    -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 apache22.yml
-    -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 apache24.yml
-    -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 nginx.yml
+   # template directory inside your project directory
+   host> ls -l data/www/my-first-project/htdocs/.devilbox
+   total 4
+   -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 apache22.yml
+   -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 apache24.yml
+   -rw-r--r-- 1 cytopia cytopia 87 Mar 12 23:05 nginx.yml
 
 The three files ``apache22.yml``, ``apache24.yml`` and ``nginx.yml`` let you customize your web
 servers virtual host to anything from adding rewrite rules, overwriting directory index to even
 changing the server name or adding locations to other assets.
 
 .. seealso::
-    The whole process is based on a project called `vhost-gen <https://github.com/devilbox/vhost-gen>`_.
-    A virtual host generator for Apache 2.2, Apache 2.4 and any Nginx version.
+   The whole process is based on a project called |ext_lnk_project_vhost_gen|.
+   A virtual host generator for Apache 2.2, Apache 2.4 and any Nginx version.
 
 .. seealso::
-    **Customize your virtual host**
-      When you want to find out more how to actually customize each virtual host to its own need,
-      read up more on :ref:`custom_vhost`.
-    **Tutorials**
-      Also have a look at this tutorial which is a walk-through showing you how to modify
-      a virtual host and make it serve all files for multiple sub domains (server names):
-      :ref:`tutorial_adding_sub_domains`
+   **Customize your virtual host**
+     When you want to find out more how to actually customize each virtual host to its own need,
+     read up more on:
+
+   * vhost-gen: :ref:`vhost_gen_virtual_host_templates`
+   * vhost-gen: :ref:`vhost_gen_customize_all_virtual_hosts_globally`
+   * vhost-gen: :ref:`vhost_gen_customize_specific_virtual_host`
+   * vhost-gen: :ref:`vhost_gen_example_add_sub_domains`
+
+
+.. _env_httpd_timeout_to_php_fpm:
+
+HTTPD_TIMEOUT_TO_PHP_FPM
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+This variable specifies after how many seconds the webserver should quit an unanswered connection
+to PHP-FPM.
+
+Ensure that this value is higher than PHP's ``max_execution_time``, otherwise the PHP script
+could still run and the webserver will simply drop the connection before getting an answer
+by PHP.
+
+If ``HTTPD_TIMEOUT_TO_PHP_FPM`` is smaller then ``max_execution_time`` and a script runs longer
+than ``max_execution_time``, you will get a: ``504 Gateway timeout`` in the browser.
+
+If ``HTTPD_TIMEOUT_TO_PHP_FPM`` is greater then ``max_execution_time`` and a script runs longer
+than ``max_execution_time``, you will get a proper PHP error message in the browser.
+
+
++------------------------------+-------------------+------------------+
+| Name                         | Allowed values    | Default value    |
++==============================+===================+==================+
+| ``HTTPD_TIMEOUT_TO_PHP_FPM`` | positive integer  | ``180``          |
++------------------------------+-------------------+------------------+
 
 
 MySQL
@@ -1367,7 +1482,7 @@ be able to display information inside the bundled intranet.
 +-------------------------+-------------------+---------------------+
 
 .. warning::
-    Keep this variable in sync with the actual MySQL root password.
+   Keep this variable in sync with the actual MySQL root password.
 
 
 MYSQL_GENERAL_LOG
@@ -1385,7 +1500,7 @@ As the Devilbox is intended to be used for development, this feature is turned o
 **MySQL documentation:**
     "The general query log is a general record of what mysqld is doing. The server writes information to this log when clients connect or disconnect, and it logs each SQL statement received from clients. The general query log can be very useful when you suspect an error in a client and want to know exactly what the client sent to mysqld."
 
-    -- https://dev.mysql.com/doc/refman/5.7/en/query-log.html
+    -- |ext_lnk_doc_mysql_query_log|
 
 PostgreSQL
 ----------
@@ -1406,7 +1521,7 @@ connect to PostgreSQL and will not be able to display information inside the bun
 +-------------------------+---------------------+---------------------+
 
 .. warning::
-    Keep this variable in sync with the actual PostgreSQL username.
+   Keep this variable in sync with the actual PostgreSQL username.
 
 
 PGSQL_ROOT_PASSWORD
@@ -1424,7 +1539,48 @@ connect to PostgreSQL and will not be able to display information inside the bun
 +-------------------------+---------------------+---------------------+
 
 .. warning::
-    Keep this variable in sync with the actual PostgreSQL password.
+   Keep this variable in sync with the actual PostgreSQL password.
+
+
+.. _env_redis:
+
+Redis
+-----
+
+REDIS_ARGS
+^^^^^^^^^^
+
+This option lets you add extra startup parameters to Redis. This could include adding a password
+protection to Redis or increasing its verbosity.
+
++-------------------------+------------------------------------------+----------------+
+| Name                    | Allowed values                           | Default value  |
++=========================+==========================================+================+
+| ``REDIS_ARGS``          | valid ``redis-server`` startup parameter | empty          |
++-------------------------+------------------------------------------+----------------+
+
+Example: Adding password protection
+"""""""""""""""""""""""""""""""""""
+
+.. code-block:: bash
+
+   REDIS_ARGS=--requirepass my-redis-root-password
+
+.. important:: Do not quote the password and do not use spaces inside the password.
+
+Example: Increasing verbosity
+"""""""""""""""""""""""""""""
+
+.. code-block:: bash
+
+   REDIS_ARGS=--loglevel verbose
+
+Example: Combining options
+""""""""""""""""""""""""""
+
+.. code-block:: bash
+
+   REDIS_ARGS=--loglevel verbose --requirepass my-redis-root-password
 
 
 Bind
@@ -1451,14 +1607,14 @@ Some examples:
 
 .. code-block:: bash
 
-    BIND_DNS_RESOLVER='8.8.8.8'
-    BIND_DNS_RESOLVER='8.8.8.8,192.168.0.10'
+   BIND_DNS_RESOLVER='8.8.8.8'
+   BIND_DNS_RESOLVER='8.8.8.8,192.168.0.10'
 
 
 .. note::
-    If you don't trust the Google DNS server, then set it to something else.
-    If you already have a DNS server inside your LAN and also want your custom DNS (if any)
-    to be available inside the containers, set the value to its IP address.
+   If you don't trust the Google DNS server, then set it to something else.
+   If you already have a DNS server inside your LAN and also want your custom DNS (if any)
+   to be available inside the containers, set the value to its IP address.
 
 
 BIND_DNSSEC_VALIDATE
@@ -1504,8 +1660,8 @@ This variable controls the DNS TTL in seconds. If empty or removed it will fallb
 
 .. seealso::
 
-    * `BIND TTL <http://www.zytrax.com/books/dns/apa/ttl.html>`_
-    * `BIND SOA <http://www.zytrax.com/books/dns/ch8/soa.html>`_
+   * |ext_lnk_doc_bind_ttl|
+   * |ext_lnk_doc_bind_soa|
 
 BIND_REFRESH_TIME
 ^^^^^^^^^^^^^^^^^
@@ -1518,7 +1674,7 @@ This variable controls the DNS Refresh time in seconds. If empty or removed it w
 | ``BIND_REFRESH_TIME``    | integer              | empty               |
 +--------------------------+----------------------+---------------------+
 
-.. seealso:: `BIND SOA <http://www.zytrax.com/books/dns/ch8/soa.html>`_
+.. seealso:: |ext_lnk_doc_bind_soa|
 
 BIND_RETRY_TIME
 ^^^^^^^^^^^^^^^
@@ -1531,7 +1687,7 @@ This variable controls the DNS Retry time in seconds. If empty or removed it wil
 | ``BIND_RETRY_TIME``      | integer              | empty               |
 +--------------------------+----------------------+---------------------+
 
-.. seealso:: `BIND SOA <http://www.zytrax.com/books/dns/ch8/soa.html>`_
+.. seealso:: |ext_lnk_doc_bind_soa|
 
 BIND_EXPIRY_TIME
 ^^^^^^^^^^^^^^^^
@@ -1544,7 +1700,7 @@ This variable controls the DNS Expiry time in seconds. If empty or removed it wi
 | ``BIND_EXPIRY_TIME``     | integer              | empty               |
 +--------------------------+----------------------+---------------------+
 
-.. seealso:: `BIND SOA <http://www.zytrax.com/books/dns/ch8/soa.html>`_
+.. seealso:: |ext_lnk_doc_bind_soa|
 
 BIND_MAX_CACHE_TIME
 ^^^^^^^^^^^^^^^^^^^
@@ -1557,13 +1713,4 @@ This variable controls the DNS Max Cache time in seconds. If empty or removed it
 | ``BIND_MAX_CACHE_TIME``  | integer              | empty               |
 +--------------------------+----------------------+---------------------+
 
-.. seealso:: `BIND SOA <http://www.zytrax.com/books/dns/ch8/soa.html>`_
-
-
-
-
-
-
-.. |br| raw:: html
-
-   <br />
+.. seealso:: |ext_lnk_doc_bind_soa|

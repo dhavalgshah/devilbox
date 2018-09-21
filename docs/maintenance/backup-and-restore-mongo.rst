@@ -1,3 +1,5 @@
+.. include:: /_includes/all.rst
+
 .. _backup_and_restore_mongo:
 
 **************************
@@ -24,22 +26,19 @@ Backup
 mongodump
 ---------
 
-`mongodump <https://docs.mongodb.com/manual/reference/program/mongodump>`_ is bundled with
-each PHP container and reay to use. To backup all databases follow the below listed example:
+|ext_lnk_tool_mongodump| is bundled with each PHP container and reay to use.
+To backup all databases follow the below listed example:
 
 .. code-block:: bash
 
-    # Navigate to the Devilbox directory
-    host> cd path/to/devilbox
+   # Navigate to the Devilbox directory
+   host> cd path/to/devilbox
 
-    # Enter the PHP container
-    host> ./shell.sh
+   # Enter the PHP container
+   host> ./shell.sh
 
-    # Run mongodump
-    devilbox@php-7.1.6 in /shared/httpd $ mongodump --out /shared/backups/mongo
-
-To find out more about the configuration and options of mongodump, visit its project page under:
-https://docs.mongodb.com/manual/reference/program/mongodump.
+   # Run mongodump
+   devilbox@php-7.1.6 in /shared/httpd $ mongodump --out /shared/backups/mongo
 
 
 Restore
@@ -48,19 +47,16 @@ Restore
 mongorestore
 ------------
 
-`mongorestore <https://docs.mongodb.com/manual/reference/program/mongorestore>`_ is bundled with
-each PHP container and ready to use. To restore all MongoDB databases follow the below listed example:
+|ext_lnk_tool_mongorestore| is bundled with each PHP container and ready to use.
+To restore all MongoDB databases follow the below listed example:
 
 .. code-block:: bash
 
-    # Navigate to the Devilbox directory
-    host> cd path/to/devilbox
+   # Navigate to the Devilbox directory
+   host> cd path/to/devilbox
 
-    # Enter the PHP container
-    host> ./shell.sh
+   # Enter the PHP container
+   host> ./shell.sh
 
-    # Start the restore/import from /shared/backups/mongo
-    devilbox@php-7.1.6 in /shared/httpd $ mongorestore /shared/backups/mongo
-
-To find out more about the configuration and options of mongorestore, visit its project page under:
-https://docs.mongodb.com/manual/reference/program/mongorestore/.
+   # Start the restore/import from /shared/backups/mongo
+   devilbox@php-7.1.6 in /shared/httpd $ mongorestore /shared/backups/mongo
