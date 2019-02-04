@@ -65,7 +65,7 @@ class Httpd extends BaseClass implements BaseInterface
 			while (false !== ($directory = readdir($handle))) {
 				if ($this->_is_valid_dir($docRoot . DIRECTORY_SEPARATOR . $directory) && $directory != '.' && $directory != '..') {
 
-					$vhosts[] = array(
+					$vhosts[$directory] = array(
 						'name'		=> $directory,
 						'domain'	=> $directory .'.' . $this->getTldSuffix(),
 						'href'		=> 'http://' . $directory . '.' . $this->getTldSuffix()
@@ -73,6 +73,9 @@ class Httpd extends BaseClass implements BaseInterface
 				}
 			}
 		}
+
+		ksort($vhosts);
+
 		return $vhosts;
 	}
 
@@ -162,6 +165,35 @@ class Httpd extends BaseClass implements BaseInterface
 		return $version;
 	}
 
+	public function getVhostgenTemplateName()
+	{
+		$httpd = strtolower($this->getName());
+		if ($httpd == 'nginx') {
+			return 'nginx.yml';
+		}
+		$version = $this->getVersion();
+
+		if (preg_match('/^2\.2.*/', $version)) {
+			return 'apache22.yml';
+		} elseif (preg_match('/^2\.4.*/', $version)) {
+			return 'apache24.yml';
+		} else {
+			return false;
+		}
+	}
+
+	public function getVhostgenTemplatePath($vhost)
+	{
+		if (!($name = $this->getVhostgenTemplateName())) {
+			return false;
+		}
+		$dir = loadClass('Helper')->getEnv('HTTPD_TEMPLATE_DIR');
+
+		if (is_file('/shared/httpd/'.$vhost.'/'.$dir.'/'.$name)) {
+			return '/shared/httpd/'.$vhost.'/'.$dir.'/'.$name;
+		}
+		return false;
+	}
 
 
 	/*********************************************************************************

@@ -96,7 +96,7 @@ By default the :ref:`env_httpd_template_dir` value is ``.devilbox``. This is def
 ``.env`` file. Feel free to change it to whatever directory name you prefer, but keep in mind that
 it will change the `Project template path` which you need to create yourself.
 
-For this example we will keep the default value for the sake of simplicity: ``.devilxbox``.
+For this example we will keep the default value for the sake of simplicity: ``.devilbox``.
 
 .. note::
    The :ref:`env_httpd_template_dir` value is a global setting and will affect all projects.
@@ -159,7 +159,7 @@ needs to be in place for what webserver version.
 +================+==================+
 | Apache 2.2     | ``apache22.yml`` |
 +----------------+------------------+
-| Apache 2.4     | ``apache22.yml`` |
+| Apache 2.4     | ``apache24.yml`` |
 +----------------+------------------+
 | Nginx stable   | ``nginx.yml``    |
 +----------------+------------------+

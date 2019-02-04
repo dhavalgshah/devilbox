@@ -495,7 +495,7 @@ password by which it will be protected.
 .. _env_devilbox_ui_enable:
 
 DEVILBOX_UI_ENABLE
--------------------
+------------------
 
 In case you want to completely disable the Devilbox intranet, such as when running it on production,
 you need to set this variable to ``0``.
@@ -509,6 +509,34 @@ ordering their names alphabetically.
 +=========================+================+===================+
 | ``DEVILBOX_UI_ENABLE``  | ``0`` or ``1`` | ``1``             |
 +-------------------------+----------------+-------------------+
+
+
+DEVILBOX_VENDOR_PHPMYADMIN_AUTOLOGIN
+------------------------------------
+
+By default phpMyAdmin will autologin without having to specify username or password. The phpMyAdmin
+vendor is not protected once you protect the Intranet. If you want users to enter username and
+password here as well, you should set the value to ``0``.
+
++-------------------------------------------+----------------+-------------------+
+| Name                                      | Allowed values | Default value     |
++===========================================+================+===================+
+| ``DEVILBOX_VENDOR_PHPMYADMIN_AUTOLOGIN``  | ``0`` or ``1`` | ``1``             |
++-------------------------------------------+----------------+-------------------+
+
+
+DEVILBOX_VENDOR_PHPPGADMIN_AUTOLOGIN
+------------------------------------
+
+By default phpPgAdmin will autologin without having to specify username or password. The phpPgAdmin
+vendor is not protected once you protect the Intranet. If you want users to enter username and
+password here as well, you should set the value to ``0``.
+
++-------------------------------------------+----------------+-------------------+
+| Name                                      | Allowed values | Default value     |
++===========================================+================+===================+
+| ``DEVILBOX_VENDOR_PHPPGADMIN_AUTOLOGIN``  | ``0`` or ``1`` | ``1``             |
++-------------------------------------------+----------------+-------------------+
 
 
 Docker image versions
@@ -528,11 +556,11 @@ PHP_SERVER
 
 This variable choses your desired PHP-FPM version to be started.
 
-+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
-| Name                    | Allowed values                                                                                                                                                                          | Default value   |
-+=========================+=========================================================================================================================================================================================+=================+
-| ``PHP_SERVER``          | ``php-fpm-5.2`` |br| ``php-fpm-5.3`` |br| ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` |br| ``php-fpm-7.3`` | ``php-fpm-7.1`` |
-+-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Name                    | Allowed values                                                                                                                                                                                               | Default value   |
++=========================+==============================================================================================================================================================================================================+=================+
+| ``PHP_SERVER``          | ``php-fpm-5.2`` |br| ``php-fpm-5.3`` |br| ``php-fpm-5.4`` |br| ``php-fpm-5.5`` |br| ``php-fpm-5.6`` |br| ``php-fpm-7.0`` |br| ``php-fpm-7.1`` |br| ``php-fpm-7.2`` |br| ``php-fpm-7.3`` |br| ``php-fpm-7.4`` | ``php-fpm-7.2`` |
++-------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
 
 .. important::
    **PHP 5.2** is available to use, but it is not officially supported. The Devilbox intranet does
@@ -558,6 +586,7 @@ All values are already available in the ``.env`` file and just need to be commen
    PHP_SERVER=php-fpm-7.1
    #PHP_SERVER=php-fpm-7.2
    #PHP_SERVER=php-fpm-7.3
+   #PHP_SERVER=php-fpm-7.4
 
 
 .. _env_httpd_server:
@@ -1182,7 +1211,7 @@ Enable any non-standard PHP modules in a comma separated list.
 +------------------------+--------------------------------------+------------------+
 
 .. note::
-   Currently only ``ioncube`` is available to enable.
+   Currently only ``ioncube`` and ``blackfire`` are available to enable.
 
 Example:
 
@@ -1193,6 +1222,33 @@ Example:
    # Enable ionCube
    PHP_MODULES_ENABLE=ioncube
 
+   # When enabling blackfire or ionCube you must also disable xdebug:
+   # https://xdebug.org/docs/install#compat
+   PHP_MODULES_DISABLE=xdebug
+
+.. code-block:: bash
+   :caption: .env
+   :emphasize-lines: 2
+
+   # Enable blackfire
+   PHP_MODULES_ENABLE=blackfire
+
+   # When enabling blackfire or ionCube you must also disable xdebug:
+   # https://xdebug.org/docs/install#compat
+   PHP_MODULES_DISABLE=xdebug
+
+.. code-block:: bash
+   :caption: .env
+   :emphasize-lines: 2
+
+   # Enable both, blackfire and ionCube
+   PHP_MODULES_ENABLE=blackfire,ioncube
+
+   # When enabling blackfire or ionCube you must also disable xdebug:
+   # https://xdebug.org/docs/install#compat
+   PHP_MODULES_DISABLE=xdebug
+
+
 .. _env_file_php_modules_disable:
 
 PHP_MODULES_DISABLE
@@ -1200,11 +1256,11 @@ PHP_MODULES_DISABLE
 
 Disable any PHP modules in a comma separated list.
 
-+-------------------------+--------------------------------------+------------------+
-| Name                    | Allowed values                       | Default value    |
-+=========================+======================================+==================+
-| ``PHP_MODULES_DISABLE`` | comma separated list of module names | ``swoole``       |
-+-------------------------+--------------------------------------+------------------+
++-------------------------+--------------------------------------+---------------------------------------------------+
+| Name                    | Allowed values                       | Default value                                     |
++=========================+======================================+===================================================+
+| ``PHP_MODULES_DISABLE`` | comma separated list of module names | ``oci8,PDO_OCI,pdo_sqlsrv,sqlsrv,rdkafka,swoole`` |
++-------------------------+--------------------------------------+---------------------------------------------------+
 
 Example:
 

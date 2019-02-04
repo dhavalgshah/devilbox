@@ -35,7 +35,7 @@
 
 .. |ext_lnk_tool_dep| raw:: html
 
-   <a target="_blank" href="https://deployer.org/">
+   <a target="_blank" href="https://deployer.org">
      Deployer <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
@@ -159,6 +159,12 @@
      PHP CodeSniffer <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
+.. |ext_lnk_tool_php_cs_fixer| raw:: html
+
+   <a target="_blank" href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">
+     PHP-CS-Fixer <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
+   </a>
+
 .. |ext_lnk_tool_phpcbf| raw:: html
 
    <a target="_blank" href="https://github.com/squizlabs/PHP_CodeSniffer">
@@ -173,13 +179,13 @@
 
 .. |ext_lnk_tool_pg_dump| raw:: html
 
-   <a target="_blank" href="https://www.postgresql.org/docs/current/static/backup-dump.html">
+   <a target="_blank" href="https://www.postgresql.org/docs/current/backup-dump.html">
      pg_dump <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
 .. |ext_lnk_tool_pgsql_restore| raw:: html
 
-   <a target="_blank" href="https://www.postgresql.org/docs/current/static/backup-dump.html#BACKUP-DUMP-RESTORE">
+   <a target="_blank" href="https://www.postgresql.org/docs/current/backup-dump.html#BACKUP-DUMP-RESTORE">
      pgsql <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
@@ -187,6 +193,12 @@
 
    <a target="_blank" href="https://photoncms.com/resources/installing">
      Photon CMS cli <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
+   </a>
+
+.. |ext_lnk_tool_pm2| raw:: html
+
+   <a target="_blank" href="https://github.com/Unitech/pm2">
+     pm2 <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
 .. |ext_lnk_tool_sass| raw:: html
@@ -265,6 +277,12 @@
 
    <a target="_blank" href="https://www.phpmyadmin.net">
      phpMyAdmin <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
+   </a>
+
+.. |ext_lnk_tool_phppgadmin| raw:: html
+
+   <a target="_blank" href="http://phppgadmin.sourceforge.net/doku.php">
+     phpPgAdmin <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
 .. |ext_lnk_tool_phpredmin| raw:: html

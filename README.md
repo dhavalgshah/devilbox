@@ -22,11 +22,17 @@
 [![type](https://img.shields.io/badge/type-Docker-red.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-<img width="200" style="width:200px;" src="docs/_includes/figures/https/https-ssl-address-bar.png" />
+<img width="200" style="width:200px;" src="docs/_includes/figures/https/https-ssl-address-bar.png" /><br/>
+<small><sub>Support for <a href="https://devilbox.readthedocs.io/en/latest/intermediate/setup-valid-https.html">valid https</a> out of the box.</sub></small>
 
-The Devilbox is a modern and highly customisable **dockerized PHP stack** supporting full **LAMP** and **MEAN** and running on all major platforms. The main goal is to easily switch and combine any version required for local development. It supports an **unlimited number of projects** for which **vhosts**, **SSL certificates** and **DNS records** are created automatically. Email catch-all and popular development tools will be at your service as well. Configuration is not necessary, as everything is already pre-setup.
+The Devilbox is a modern and highly customisable **dockerized PHP stack** supporting full **LAMP**
+and **MEAN** and running on all major platforms.  The main goal is to easily switch and combine
+any version required for local development. It supports an **unlimited number of projects** for
+which **vhosts**, **SSL certificates** and **DNS records** are created automatically.
+**Reverse proxies** per project are supported to ensure listening server such as NodeJS can also be reached.
+Email catch-all and popular development tools will be at your service as well. Configuration is not necessary, as everything is already pre-setup.
 
-Furthermore, the Devilbox provides an **identical** and **reproducable development environment** for different host operating systems.
+Furthermore, the Devilbox provides an **identical** and **reproducible development environment** for different host operating systems.
 
 **Requirements**
 
@@ -38,7 +44,6 @@ Furthermore, the Devilbox provides an **identical** and **reproducable developme
 
 * [Docker Engine 1.12.0+](https://docs.docker.com/compose/compose-file/compose-versioning/#version-21)
 * [Docker Compose 1.9.0+](https://docs.docker.com/compose/compose-file/compose-versioning/#version-21)
-
 
 ## Available Container
 
@@ -54,45 +59,49 @@ The Devilbox ships the following pre-configured Docker container in any availabl
 > **Documentation:**
 > [Available Container](https://devilbox.readthedocs.io/en/latest/readings/available-container.html)
 
-
-
 ## Community
 
-Find documentation and help here
+The Devilbox has a lot of features reaching from a simple single-user development environment that
+works out of the box up to a shared development infrastructure for a corporate network.
+
+In order to be aware about all that features, ensure to have skimmed over the
+**[documentation](https://devilbox.readthedocs.io)**, so you know what can be done and how that might
+simplify your every-day life. If you ever run into any unforseen issues, feel free to join the
+**[chat](https://gitter.im/devilbox/Lobby)** or visit the **[forums](https://devilbox.discourse.group)** and get community support quickly.
 
 <table width="100%" style="width:100%; display:table;">
  <thead>
   <tr>
-   <th width="33%" style="width:33%;"><h3><a href="https://devilbox.readthedocs.io" >Documentation</a></h3></th>
-   <th width="33%" style="width:33%;"><h3><a href="https://gitter.im/devilbox/Lobby" >Chat</a></h3></th>
-   <th width="33%" style="width:33%;"><h3>Forum</h3></th>
+   <th width="33%" style="width:33%;"><h3><a target="_blank" href="https://devilbox.readthedocs.io">Documentation</a></h3></th>
+   <th width="33%" style="width:33%;"><h3><a target="_blank" href="https://gitter.im/devilbox/Lobby">Chat</a></h3></th>
+   <th width="33%" style="width:33%;"><h3><a target="_blank" href="https://devilbox.discourse.group">Forum</a></h3></th>
   </tr>
  </thead>
  <tbody style="vertical-align: middle; text-align: center;">
   <tr>
    <td>
-    <a href="https://devilbox.readthedocs.io">
-	 <img title="Documentation" name="Documentation" src="https://raw.githubusercontent.com/cytopia/icons/master/400x400/readthedocs.png" />
+    <a target="_blank" href="https://devilbox.readthedocs.io">
+     <img title="Documentation" name="Documentation" src="https://raw.githubusercontent.com/cytopia/icons/master/400x400/readthedocs.png" />
     </a>
    </td>
    <td>
-    <a href="https://gitter.im/devilbox/Lobby">
+    <a target="_blank" href="https://gitter.im/devilbox/Lobby">
      <img title="Chat on Gitter" name="Chat on Gitter" src="https://raw.githubusercontent.com/cytopia/icons/master/400x400/gitter.png" />
     </a>
    </td>
    <td>
-    <img title="Forum" name="Forum" src="https://raw.githubusercontent.com/cytopia/icons/master/400x400/discourse.png" />
+    <a target="_blank" href="https://devilbox.discourse.group">
+     <img title="Devilbox Forums" name="Forum" src="https://raw.githubusercontent.com/cytopia/icons/master/400x400/discourse.png" />
+    </a>
    </td>
   </tr>
   <tr>
-  <td><a href="https://devilbox.readthedocs.io">devilbox.readthedocs.io</a></td>
-  <td><a href="https://gitter.im/devilbox/Lobby">gitter.im/devilbox</a></td>
-  <td>coming soon</td>
+  <td><a target="_blank" href="https://devilbox.readthedocs.io">devilbox.readthedocs.io</a></td>
+  <td><a target="_blank" href="https://gitter.im/devilbox/Lobby">gitter.im/devilbox</a></td>
+  <td><a target="_blank" href="https://devilbox.discourse.group">devilbox.discourse.group</a></td>
   </tr>
  </tbody>
 </table>
-
-
 
 ## Usage
 
@@ -135,7 +144,6 @@ C:\devilbox> docker-compose up</pre></div>
 > [Start the Devilbox](https://devilbox.readthedocs.io/en/latest/getting-started/start-the-devilbox.html) |
 > [.env file](https://devilbox.readthedocs.io/en/latest/configuration-files/env-file.html)
 
-
 #### Selective start
 
 The above will start all containers, you can however also just start the containers you actually need. This is achieved by simply specifying them in the docker-compose command.
@@ -145,7 +153,6 @@ $ docker-compose up httpd php mysql redis
 ```
 > **Documentation:**
 > [Start only some container](https://devilbox.readthedocs.io/en/latest/getting-started/start-the-devilbox.html#start-some-container)
-
 
 ![Devilbox](docs/img/devilbox-dash-selective.png)
 
@@ -176,9 +183,9 @@ Every single attachable container comes with many different versions. In order t
       <td><a target="_blank" title="MySQL 5.5"        href="https://github.com/cytopia/docker-mysql-5.5">5.5</a></td>
       <td><a target="_blank" title="MariaDB 5.5"      href="https://github.com/cytopia/docker-mariadb-5.5">5.5</a></td>
       <td><a target="_blank" title="PerconaDB 5.5"    href="https://github.com/cytopia/docker-percona-5.5">5.5</a></td>
-      <td><a target="_blank" title="PgSQL 9.1"        href="https://github.com/docker-library/postgres">9.1</a></td>
+      <td><a target="_blank" title="PgSQL 9.0"        href="https://github.com/docker-library/postgres">9.0</a></td>
       <td><a target="_blank" title="Redis 2.8"        href="https://github.com/docker-library/redis">2.8</a></td>
-      <td><a target="_blank" title="Memcached 1.4.21" href="https://github.com/docker-library/memcached">1.4.21</a></td>
+      <td><a target="_blank" title="Memcached 1.4"    href="https://github.com/docker-library/memcached">1.4</a></td>
       <td><a target="_blank" title="MongoDB 2.8"      href="https://github.com/docker-library/mongo">2.8</a></td>
     </tr>
     <tr>
@@ -188,9 +195,9 @@ Every single attachable container comes with many different versions. In order t
       <td><a target="_blank" title="MySQL 5.6"        href="https://github.com/cytopia/docker-mysql-5.6">5.6</a></td>
       <td><a target="_blank" title="MariaDB 10.0"     href="https://github.com/cytopia/docker-mariadb-10.0">10.0</a></td>
       <td><a target="_blank" title="PerconaDB 5.6"    href="https://github.com/cytopia/docker-percona-5.6">5.6</a></td>
-      <td><a target="_blank" title="PgSQL 9.2"        href="https://github.com/docker-library/postgres">9.2</a></td>
+      <td><a target="_blank" title="PgSQL 9.1"        href="https://github.com/docker-library/postgres">9.1</a></td>
       <td><a target="_blank" title="Redis 3.0"        href="https://github.com/docker-library/redis">3.0</a></td>
-      <td><a target="_blank" title="Memcached 1.4.22" href="https://github.com/docker-library/memcached">1.4.22</a></td>
+      <td><a target="_blank" title="Memcached 1.5"    href="https://github.com/docker-library/memcached">1.5</a></td>
       <td><a target="_blank" title="MongoDB 3.0"      href="https://github.com/docker-library/mongo">3.0</a></td>
     </tr>
     <tr>
@@ -200,9 +207,9 @@ Every single attachable container comes with many different versions. In order t
       <td><a target="_blank" title="MySQL 5.7"        href="https://github.com/cytopia/docker-mysql-5.7">5.7</a></td>
       <td><a target="_blank" title="MariaDB 10.1"     href="https://github.com/cytopia/docker-mariadb-10.1">10.1</a></td>
       <td><a target="_blank" title="PerconaDB 5.7"    href="https://github.com/cytopia/docker-percona-5.7">5.7</a></td>
-      <td><a target="_blank" title="PgSQL 9.3"        href="https://github.com/docker-library/postgres">9.3</a></td>
+      <td><a target="_blank" title="PgSQL 9.2"        href="https://github.com/docker-library/postgres">9.2</a></td>
       <td><a target="_blank" title="Redis 3.2"        href="https://github.com/docker-library/redis">3.2</a></td>
-      <td><a target="_blank" title="Memcached 1.4.23" href="https://github.com/docker-library/memcached">1.4.23</a></td>
+      <td><a target="_blank" title="Memcached latest" href="https://github.com/docker-library/memcached">latest</a></td>
       <td><a target="_blank" title="MongoDB 3.2"      href="https://github.com/docker-library/mongo">3.2</a></td>
     </tr>
     <tr>
@@ -212,9 +219,9 @@ Every single attachable container comes with many different versions. In order t
       <td><a target="_blank" title="MySQL 8.0"        href="https://github.com/cytopia/docker-mysql-8.0">8.0</a></td>
       <td><a target="_blank" title="MariaDB 10.2"     href="https://github.com/cytopia/docker-mariadb-10.2">10.2</a></td>
       <td></td>
-      <td><a target="_blank" title="PgSQL 9.4"        href="https://github.com/docker-library/postgres">9.4</a></td>
+      <td><a target="_blank" title="PgSQL 9.3"        href="https://github.com/docker-library/postgres">9.3</a></td>
       <td><a target="_blank" title="Redis 4.0"        href="https://github.com/docker-library/redis">4.0</a></td>
-      <td><a target="_blank" title="Memcached 1.4.23" href="https://github.com/docker-library/memcached">1.4.24</a></td>
+      <td></td>
       <td><a target="_blank" title="MongoDB 3.4"      href="https://github.com/docker-library/mongo">3.4</a></td>
     </tr>
     <tr>
@@ -224,10 +231,10 @@ Every single attachable container comes with many different versions. In order t
       <td></td>
       <td><a target="_blank" title="MariaDB 10.3"     href="https://github.com/cytopia/docker-mariadb-10.3">10.3</a></td>
       <td></td>
-      <td><a target="_blank" title="PgSQL 9.5"        href="https://github.com/docker-library/postgres">9.5</a></td>
+      <td><a target="_blank" title="PgSQL 9.4"        href="https://github.com/docker-library/postgres">9.4</a></td>
+      <td><a target="_blank" title="Redis 5.0"        href="https://github.com/docker-library/redis">5.0</a></td>
       <td></td>
-      <td>...</td>
-      <td><a target="_blank" title="MongoDB 3.5"      href="https://github.com/docker-library/mongo">3.5</a></td>
+      <td><a target="_blank" title="MongoDB 3.6"      href="https://github.com/docker-library/mongo">3.6</a></td>
     </tr>
     <tr>
       <td></td>
@@ -236,10 +243,10 @@ Every single attachable container comes with many different versions. In order t
       <td></td>
       <td></td>
       <td></td>
-      <td><a target="_blank" title="PgSQL 9.6"        href="https://github.com/docker-library/postgres">9.6</a></td>
+      <td><a target="_blank" title="PgSQL 9.5"        href="https://github.com/docker-library/postgres">9.5</a></td>
+      <td><a target="_blank" title="Redis latest"     href="https://github.com/docker-library/redis">latest</a></td>
       <td></td>
-      <td><a target="_blank" title="Memcached 1.5.2"  href="https://github.com/docker-library/memcached">1.5.2</a></td>
-      <td></td>
+      <td><a target="_blank" title="MongoDB 4.0"      href="https://github.com/docker-library/mongo">4.0</a></td>
     </tr>
     <tr>
       <td></td>
@@ -248,10 +255,10 @@ Every single attachable container comes with many different versions. In order t
       <td></td>
       <td></td>
       <td></td>
-      <td><a target="_blank" title="PgSQL 10.0"       href="https://github.com/docker-library/postgres">10.0</a></td>
+      <td><a target="_blank" title="PgSQL 9.6"        href="https://github.com/docker-library/postgres">9.6</a></td>
       <td></td>
-      <td><a target="_blank" title="Memcached latest" href="https://github.com/docker-library/memcached">latest</a></td>
       <td></td>
+      <td><a target="_blank" title="MongoDB latest"   href="https://github.com/docker-library/mongo">latest</a></td>
     </tr>
     <tr>
       <td></td>
@@ -260,7 +267,7 @@ Every single attachable container comes with many different versions. In order t
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>...</td>
       <td></td>
       <td></td>
       <td></td>
@@ -272,7 +279,19 @@ Every single attachable container comes with many different versions. In order t
       <td></td>
       <td></td>
       <td></td>
+      <td><a target="_blank" title="PgSQL 11.1"       href="https://github.com/docker-library/postgres">11.1</a></td>
       <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><a target="_blank" title="PHP 7.4"          href="https://github.com/devilbox/docker-php-fpm">7.4</a><sup>[2]</sup></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a target="_blank" title="PgSQL latest"     href="https://github.com/docker-library/postgres">latest</a></td>
       <td></td>
       <td></td>
       <td></td>
@@ -282,6 +301,9 @@ Every single attachable container comes with many different versions. In order t
 
 <strong><sup>[1]</sup></strong> <strong>PHP 5.2</strong> is available to use, but it is not officially supported. The Devilbox intranet does not work with this version as PHP 5.2 does not support namespaces.
 Furthermore PHP 5.2 does only work with Apache 2.4, Nginx stable and Nginx mainline. It does not work with Apache 2.2. Use at your own risk.
+
+<strong><sup>[2]</sup></strong> <strong>PHP 7.4</strong> is the upcoming unreleased version of PHP, which is directly built out of their [master](https://github.com/php/php-src/) branch.
+It will improve every day as the image is rebuilt every day from the latest commits.
 
 > **Documentation:**
 > [Change container versions](https://devilbox.readthedocs.io/en/latest/getting-started/change-container-versions.html)
@@ -330,7 +352,6 @@ Additionally to the default stack, there are a variety of other services that ca
 > **Documentation:**
 > [Enable custom container](https://devilbox.readthedocs.io/en/latest/custom-container/enable-all-container.html)
 
-
 #### Enter the container
 
 You can also work directly inside the php container. Simply use the bundled scripts `shell.sh` (or `shell.bat` for Windows).
@@ -364,12 +385,10 @@ Your projects can be found in `/shared/httpd`. DNS records are automatically ava
 > [Work inside the PHP container](https://devilbox.readthedocs.io/en/latest/intermediate/work-inside-the-php-container.html) |
 > [Directory overview](https://devilbox.readthedocs.io/en/latest/getting-started/directory-overview.html)
 
-
 #### Quick Video intro
 
 [![Devilbox setup and workflow](docs/img/devilbox_01-setup-and-workflow.png "devilbox - setup and workflow")](https://www.youtube.com/watch?v=reyZMyt2Zzo)
 [![Devilbox email catch-all](docs/img/devilbox_02-email-catch-all.png "devilbox - email catch-all")](https://www.youtube.com/watch?v=e-U-C5WhxGY)
-
 
 ## Feature overview
 
@@ -382,6 +401,10 @@ The Devilbox has everything setup for you. The only thing you will have to insta
 
 <table>
 <tbody>
+  <tr>
+    <td width="220" style="width:220px;">:star: HTTP/2 support</td>
+    <td>All HTTPS connections will offer <a href="https://en.wikipedia.org/wiki/HTTP/2">HTTP/2</a> as the default protocol, except for Apache 2.2 which does not support it.</td>
+  </tr>
   <tr>
     <td width="220" style="width:220px;">:star: Auto virtual hosts</td>
     <td>New virtual hosts are created automatically and instantly whenever you add a project directory. This is done internally via <a href="https://travis-ci.org/devilbox/vhost-gen">vhost-gen</a> and <a href="https://github.com/devilbox/watcherd">watcherd</a>.</td>
@@ -399,12 +422,20 @@ The Devilbox has everything setup for you. The only thing you will have to insta
     <td>You can overwrite and customise the default applied vhost configuration for every single vhost.</td>
   </tr>
   <tr>
+    <td>:star: Reverse proxy</td>
+    <td>Have your NodeJS application served with a nice domain name and valid HTTPS.</td>
+  </tr>
+  <tr>
     <td>:star: Custom domains</td>
-    <td>Choose whatever development domain you desire: <code>*.loc</code>, <code>*.local</code>, <code>*.dev</code> or use real domains as well: <code>*.example.com</code></td>
+    <td>Choose whatever development domain you desire: <code>*.loc</code>, <code>*.dev</code> or use real domains as well: <code>*.example.com</code></td>
   </tr>
   <tr>
     <td>:star: Auto DNS</td>
-    <td>An integraded BIND server is able to create DNS entries automatically for your chosen domains.</td>
+    <td>An integrated BIND server is able to create DNS entries automatically for your chosen domains.</td>
+  </tr>
+  <tr>
+    <td>:star: Auto start scripts</td>
+    <td>Custom startup scripts can be provided for all PHP container equally and also differently per PHP version to install custom software or automatically startup up your required tools.</td>
   </tr>
   <tr>
     <td>:star: Custom PHP config</td>
@@ -448,6 +479,7 @@ The following batteries are available in the Devilbox intranet by default:
  <tr>
   <td><a href="https://www.adminer.org"><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/adminer.png" alt="Adminer" /></a></td>
   <td><a href="https://www.phpmyadmin.net"><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/phpmyadmin.png" alt="phpMyAdmin" /></a></td>
+  <td><a href="http://phppgadmin.sourceforge.net"><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/phppgadmin.png" alt="phpPgAdmin" /></a></td>
   <td><a href="https://github.com/sasanrose/phpredmin"><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/phpredmin.png" alt="phpRedMin" /></a></td>
   <td><a href="https://github.com/PeeHaa/OpCacheGUI"><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/opcachegui.png" alt="OpCacheGUI" /></a></td>
   <td><img width="64" style="width:64px;" src="https://raw.githubusercontent.com/cytopia/icons/master/128x128/email.png" alt="Mail viewer" /></td>
@@ -455,6 +487,7 @@ The following batteries are available in the Devilbox intranet by default:
  <tr>
   <td><a href="https://www.adminer.org">Adminer</a></td>
   <td><a href="https://www.phpmyadmin.net">phpMyAdmin</a></td>
+  <td><a href="http://phppgadmin.sourceforge.net">phpPgAdmin</a></td>
   <td><a href="https://github.com/sasanrose/phpredmin">phpRedMin</a></td>
   <td><a href="https://github.com/PeeHaa/OpCacheGUI">OpCache GUI</a></td>
   <td>Mail viewer</td>
@@ -464,7 +497,6 @@ The following batteries are available in the Devilbox intranet by default:
 
 > **Documentation:**
 > [Devilbox Intranet](https://devilbox.readthedocs.io/en/latest/getting-started/devilbox-intranet.html)
-
 
 #### Tools
 
@@ -521,6 +553,14 @@ The following tools will assist you on creating new projects easily as well as h
     <td><code>phpcbf</code> is a command line tool that automatically correct coding standard violations.</td>
   </tr>
   <tr>
+    <td>:wrench: <a href="https://github.com/FriendsOfPHP/PHP-CS-Fixer">php cs fixer</a></td>
+    <td><code>php-cs-fixer</code> is a tool to automatically fix PHP Coding Standards issues.</td>
+  </tr>
+  <tr>
+    <td>:wrench: <a href="https://github.com/Unitech/pm2">pm2</a></td>
+    <td><code>pm2</code> is Node.js Production Process Manager with a built-in Load Balancer.</td>
+  </tr>
+  <tr>
     <td>:wrench: <a href="https://github.com/brigade/scss-lint/">scss-lint</a></td>
     <td><code>scss-lint</code> is a css/scss linter.</td>
   </tr>
@@ -534,7 +574,7 @@ The following tools will assist you on creating new projects easily as well as h
   </tr>
   <tr>
     <td>:wrench: <a href="https://wp-cli.org">wp-cli</a></td>
-    <td><code>wp</code> is a command line tool that lets you easily install Wordpress.</td>
+    <td><code>wp</code> is a command line tool that lets you easily install WordPress.</td>
   </tr>
   <tr>
     <td>:wrench: <a href="https://github.com/adrienverge/yamllint">yamllint</a></td>
@@ -565,18 +605,123 @@ Well-known and popular tools will be at your service as well:
 > **Documentation:**
 > [Available Tools](https://devilbox.readthedocs.io/en/latest/readings/available-tools.html)
 
-
 #### Available PHP Modules
 
 The Devilbox is a development stack, so it is made sure that a lot of PHP modules are available out of the box in order to work with many different frameworks.
 
-> *amqp, apcu, bcmath, bz2, calendar, Core, ctype, curl, date, dba, dom, enchant, exif, fileinfo, filter, ftp, gd, gettext, gmp, hash, iconv, igbinary, imagick, imap, interbase, intl, json, ldap, libxml, mbstring, mcrypt, memcache, memcached, mongodb, msgpack, mysqli, mysqlnd, openssl, pcntl, pcre, PDO, pdo_dblib, PDO_Firebird, pdo_mysql, pdo_pgsql, pdo_sqlite, pgsql, phalcon, Phar, posix, pspell, readline, recode, redis, Reflection, session, shmop, SimpleXML, snmp, soap, sockets, sodium, SPL, sqlite3, standard, swoole, sysvmsg, sysvsem, sysvshm, tidy, tokenizer, uploadprogress, wddx, xdebug, xml, xmlreader, xmlrpc, xmlwriter, xsl, Zend OPcache, zip, zlib*
+> * Core enabled (cannot be disabled): **✔**
+> * Enabled (can be disabled): 🗸
+> * Available, but disabled (can be enabled): **d**
+
+<!-- modules -->
+| Modules        | PHP 5.2 | PHP 5.3 | PHP 5.4 | PHP 5.5 | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 | PHP 7.3 | PHP 7.4 |
+|----------------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|
+| amqp           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |         |
+| apc            |         |    🗸    |    🗸    |    🗸    |    🗸    |         |         |         |         |         |
+| apcu           |         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| bcmath         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| blackfire      |         |         |         |         |    d    |    d    |    d    |    d    |    d    |         |
+| bz2            |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| calendar       |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| Core           |         |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| ctype          |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| curl           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| date           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| dba            |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| dom            |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| enchant        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| ereg           |         |    ✔    |    ✔    |    ✔    |    ✔    |         |         |         |         |         |
+| exif           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| FFI            |         |         |         |         |         |         |         |         |         |    🗸    |
+| fileinfo       |    🗸    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| filter         |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| ftp            |    🗸    |    🗸    |    🗸    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| gd             |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| gettext        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| gmp            |         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| hash           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| iconv          |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| igbinary       |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| imagick        |         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| imap           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| interbase      |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| intl           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| ioncube        |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |         |         |
+| json           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| ldap           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| libxml         |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| mbstring       |    ✔    |    🗸    |    🗸    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| mcrypt         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |         |
+| memcache       |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |         |
+| memcached      |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| mhash          |         |         |         |         |    ✔    |         |         |         |         |         |
+| mongo          |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |         |         |         |         |
+| mongodb        |         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| msgpack        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| mysql          |    ✔    |    ✔    |    🗸    |    🗸    |    🗸    |         |         |         |         |         |
+| mysqli         |    ✔    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| mysqlnd        |         |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| oci8           |         |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |
+| openssl        |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| pcntl          |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| pcre           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| PDO            |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| pdo_dblib      |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| PDO_Firebird   |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| pdo_mysql      |    ✔    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| PDO_OCI        |         |         |         |         |         |    d    |    d    |    d    |    d    |    d    |
+| pdo_pgsql      |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| pdo_sqlite     |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| pdo_sqlsrv     |         |         |         |         |         |    d    |    d    |    d    |    d    |         |
+| pgsql          |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| phalcon        |         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| Phar           |    🗸    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| posix          |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| pspell         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| rdkafka        |         |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |
+| readline       |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| recode         |    🗸    |    ✔    |    ✔    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| redis          |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| Reflection     |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| session        |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| shmop          |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| SimpleXML      |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| snmp           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| soap           |    ✔    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| sockets        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| sodium         |         |         |         |         |         |         |         |    ✔    |    ✔    |    ✔    |
+| SPL            |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| SQLite         |    ✔    |    ✔    |         |         |         |         |         |         |         |         |
+| sqlite3        |         |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| sqlsrv         |         |         |         |         |         |    d    |    d    |    d    |    d    |         |
+| standard       |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| swoole         |         |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |    d    |
+| sysvmsg        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| sysvsem        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| sysvshm        |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| tidy           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| tokenizer      |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| uploadprogress |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| wddx           |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| xdebug         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |         |
+| xml            |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| xmlreader      |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| xmlrpc         |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| xmlwriter      |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+| xsl            |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| Zend OPcache   |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| zip            |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |    🗸    |
+| zlib           |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |    ✔    |
+<!-- /modules -->
+
+> * Core enabled (cannot be disabled): **✔**
+> * Enabled (can be disabled): 🗸
+> * Available, but disabled (can be enabled): **d**
 
 PHP modules can be enabled or disabled on demand to reflect the state of your target environment.
 
 > **Documentation:**
 > [Enable/disable PHP modules](https://devilbox.readthedocs.io/en/latest/intermediate/enable-disable-php-modules.html)
-
 
 #### Custom PHP Modules
 
@@ -599,7 +744,7 @@ As far as tested there are no limitations and you can use any Framework or CMS j
 <a target="_blank" title="Shopware" href="https://en.shopware.com"><img width="64" style="width:64px" src="docs/img/logo_fw/shopware.png" alt="Devilbox"/></a>
 <a target="_blank" title="Symfony" href="https://symfony.com"><img width="64" style="width:64px" src="docs/img/logo_fw/symfony.png" alt="Devilbox"/></a>
 <a target="_blank" title="Typo3" href="https://typo3.org"><img width="64" style="width:64px" src="docs/img/logo_fw/typo3.png" alt="Devilbox"/></a>
-<a target="_blank" title="Wordpress" href="https://wordpress.org"><img width="64" style="width:64px" src="docs/img/logo_fw/wordpress.png" alt="Devilbox"/></a>
+<a target="_blank" title="WordPress" href="https://wordpress.org"><img width="64" style="width:64px" src="docs/img/logo_fw/wordpress.png" alt="Devilbox"/></a>
 <a target="_blank" title="Yii" href="http://www.yiiframework.com"><img width="64" style="width:64px" src="docs/img/logo_fw/yii.png" alt="Devilbox"/></a>
 <a target="_blank" title="Zend" href="https://framework.zend.com"><img width="64" style="width:64px" src="docs/img/logo_fw/zend.png" alt="Devilbox"/></a>
 
@@ -617,10 +762,23 @@ As far as tested there are no limitations and you can use any Framework or CMS j
 > [Setup Shopware](https://devilbox.readthedocs.io/en/latest/examples/setup-shopware.html) |
 > [Setup Symfony](https://devilbox.readthedocs.io/en/latest/examples/setup-symfony.html) |
 > [Setup Typo3](https://devilbox.readthedocs.io/en/latest/examples/setup-typo3.html) |
-> [Setup Wordpress](https://devilbox.readthedocs.io/en/latest/examples/setup-wordpress.html) |
+> [Setup WordPress](https://devilbox.readthedocs.io/en/latest/examples/setup-wordpress.html) |
 > [Setup Yii](https://devilbox.readthedocs.io/en/latest/examples/setup-yii.html) |
 > [Setup Zend](https://devilbox.readthedocs.io/en/latest/examples/setup-zend.html)
 
+#### Supported reverse proxied applications
+
+As far as tested there are no limitations and you can use any application that creates an open port.
+These ports will be reverse proxied by the web server and even allow you to use valid HTTPS for them.
+By the built-in autostart feature of the Devilbox you can ensure that your application automatically
+starts up as soon as you run `docker-compose up`.
+
+<a target="_blank" title="NodeJS" href="https://nodejs.org"><img width="64" style="width:64px;" src="docs/img/logo_tools/nodejs.png" alt="Devilbox"/></a>
+<a target="_blank" title="Sphinx" href="https://www.sphinx-doc.org/en/stable/"><img width="64" style="width:64px;" src="docs/img/logo_tools/sphinx.png" alt="Devilbox"/></a>
+
+> **Documentation:**<br/>
+> [Setup reverse proxy NodeJs](https://devilbox.readthedocs.io/en/latest/examples/setup-reverse-proxy-nodejs.html) |
+> [Setup reverse proxy Sphinx documentation](https://devilbox.readthedocs.io/en/latest/examples/setup-reverse-proxy-sphinx-docs.html)
 
 ## Intranet overview
 
@@ -632,12 +790,12 @@ The Devilbox comes with a pre-configured intranet on `http://localhost` and `htt
 * **Info pages** (Httpd, MySQL, PgSQL, Redis, Memcache, ...)
 * **[Adminer](https://www.adminer.org)**
 * **[phpMyAdmin](https://www.phpmyadmin.net)**
+* **[phpPgAdmin](http://phppgadmin.sourceforge.net)**
 * **[phpRedMin](https://github.com/sasanrose/phpredmin)**
 * **[OpcacheGUI](https://github.com/PeeHaa/OpCacheGUI)**
 
 > **Documentation:**
 > [Devilbox Intranet](https://devilbox.readthedocs.io/en/latest/getting-started/devilbox-intranet.html)
-
 
 ## Screenshots
 
@@ -664,7 +822,6 @@ A few examples of how the built-in intranet looks like.
  </tr>
 </table>
 
-
 ## Contributing [![Open Source Helpers](https://www.codetriage.com/cytopia/devilbox/badges/users.svg)](https://www.codetriage.com/cytopia/devilbox)
 
 The Devilbox is still a young project with a long roadmap of features to come. Features are
@@ -678,7 +835,6 @@ To increase visibility and bug-free operation:
 
 Additionally you can [subscribe to Devilbox on CodeTriage](https://www.codetriage.com/cytopia/devilbox),
 read up on [CONTRIBUTING.md](CONTRIBUTING.md) and check the [ROADMAP](https://github.com/cytopia/devilbox/issues/23) about what is already planned for the near future.
-
 
 ## Logos
 

@@ -34,15 +34,15 @@
      Official Laravel Documentation <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
-.. |ext_lnk_example_magento_documentation| raw:: html
+.. |ext_lnk_example_magento2_documentation| raw:: html
 
-   <a target="_blank" href="https://devdocs.magento.com/guides/m1x/install/installing.html">
-     Official Magento Documentation <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
+   <a target="_blank" href="https://devdocs.magento.com/guides/v2.2/install-gde/bk-install-guide.html">
+     Official Magento 2 Documentation <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
 .. |ext_lnk_example_phalcon_documentation| raw:: html
 
-   <a target="_blank" href="https://docs.phalconphp.com/en/3.2/devtools-usage">
+   <a target="_blank" href="https://docs.phalconphp.com/latest/en/devtools-usage">
      Official Phalcon Documentation  <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 
@@ -60,7 +60,7 @@
 
 .. |ext_lnk_example_shopware_documentation| raw:: html
 
-   <a target="_blank" href="https://en-community.shopware.com/Shopware-5-Installer_detail_1351_730.html/sCoreId,bdd630e6d079964f3f697fccff83a987">
+   <a target="_blank" href="https://docs.shopware.com/en/shopware-5-en/first-steps/installing-shopware?category=shopware-5-en/getting-started">
      Official Shopware Documentation <img src="https://raw.githubusercontent.com/cytopia/icons/master/11x11/ext-link.png" />
    </a>
 

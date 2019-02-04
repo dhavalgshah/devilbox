@@ -86,12 +86,17 @@ class Html
 			'menu' => array(
 				array(
 					'name' => 'Adminer',
-					'path' => '/vendor/adminer-4.6.2-en.php',
+					'path' => '__ADMINER__',
 					'target' => '_blank'
 				),
 				array(
 					'name' => 'phpMyAdmin',
 					'path' => '__PHPMYADMIN__',
+					'target' => '_blank'
+				),
+				array(
+					'name' => 'phpPgAdmin',
+					'path' => '__PHPPGADMIN__',
 					'target' => '_blank'
 				),
 				array(
@@ -383,7 +388,13 @@ HTML;
 
 					// Replace
 					if ($el['path'] == '__PHPMYADMIN__') {
-						$el['path'] = (strpos(loadClass('Php')->getVersion(), '5.4') !== false) ? '/vendor/phpmyadmin-4.0/index.php' : '/vendor/phpmyadmin-4.8/index.php';
+						$el['path'] = (version_compare(loadClass('Php')->getVersion(), '5.5', '<')) ? '/vendor/phpmyadmin-4.0/index.php' : '/vendor/phpmyadmin-4.8.4/index.php';
+					}
+					if ($el['path'] == '__PHPPGADMIN__') {
+						$el['path'] = (version_compare(loadClass('Php')->getVersion(), '5.2', '<')) ? '/vendor/phpmyadmin-4.0/' : '/vendor/phppgadmin-5.6.0/';
+					}
+					if ($el['path'] == '__ADMINER__') {
+						$el['path'] = (version_compare(loadClass('Php')->getVersion(), '5.4', '<')) ? '/vendor/adminer-4.6.3-en.php' : '/vendor/adminer-4.7.0-en.php';
 					}
 
 					$target = isset($el['target']) ? 'target="'.$el['target'].'"' : '';

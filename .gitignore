@@ -13,15 +13,17 @@
 # CUSTOM
 ######################################
 
-# Ignore variable dat
+# Ignore variable data
 /.env
+/backups/*
 /log/[a-z0-9-]*
+
+# Ignore Data dirs
 /data/mongo/*
 /data/mysql/*
-/data/pqsql/*
-/data/www/*
+/data/pgsql/*
 /data/rabbit/*
-/backups/*
+/data/www/*
 
 # Ignore Certificate Authority
 /ca/*
@@ -30,7 +32,7 @@
 /mail/*
 
 # Ignore compose override file
-docker-compose.override.yml
+/docker-compose.override.yml
 
 # Ignore custom global vhost gen templates
 /cfg/vhost-gen/apache22.conf
@@ -66,7 +68,7 @@ docker-compose.override.yml
 /cfg/php-ini-7.1/*.ini
 /cfg/php-ini-7.2/*.ini
 /cfg/php-ini-7.3/*.ini
-#/cfg/hhvm-latest/*.ini
+/cfg/php-ini-7.4/*.ini
 
 # Ignore custom PHP-FPM configs
 /cfg/php-fpm-5.2/php-fpm.xml
@@ -78,7 +80,20 @@ docker-compose.override.yml
 /cfg/php-fpm-7.1/*.conf
 /cfg/php-fpm-7.2/*.conf
 /cfg/php-fpm-7.3/*.conf
-#/cfg/hhvm-latest/*.conf
+/cfg/php-fpm-7.4/*.conf
+
+# Ignore custom PHP-FPM startup scripts
+/autostart/*.sh
+/cfg/php-startup-5.2/*.sh
+/cfg/php-startup-5.3/*.sh
+/cfg/php-startup-5.4/*.sh
+/cfg/php-startup-5.5/*.sh
+/cfg/php-startup-5.6/*.sh
+/cfg/php-startup-7.0/*.sh
+/cfg/php-startup-7.1/*.sh
+/cfg/php-startup-7.2/*.sh
+/cfg/php-startup-7.3/*.sh
+/cfg/php-startup-7.4/*.sh
 
 # Ignore custom PHP-FPM modules
 /mod/php-fpm-5.2/*.so
@@ -90,7 +105,7 @@ docker-compose.override.yml
 /mod/php-fpm-7.1/*.so
 /mod/php-fpm-7.2/*.so
 /mod/php-fpm-7.3/*.so
-#/mod/hhvm-latest/*.so
+/mod/php-fpm-7.4/*.so
 
 # Ignore custom bash and other confi files
 /bash/*
@@ -102,6 +117,15 @@ docker-compose.override.yml
 /docs/make.bat
 /docs/linkcheck
 *.rst.todo
+
+# Ignore vhost-gen files in test dir (copied on the fly)
+/.tests/vhost-tests/my-vhost/.devilbox/apache22.yml
+/.tests/vhost-tests/my-vhost/.devilbox/apache24.yml
+/.tests/vhost-tests/my-vhost/.devilbox/nginx.yml
+
+/.tests/vhost-tests/my-rhost/.devilbox/apache22.yml
+/.tests/vhost-tests/my-rhost/.devilbox/apache24.yml
+/.tests/vhost-tests/my-rhost/.devilbox/nginx.yml
 
 # Keep folders
 !.keepme

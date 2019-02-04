@@ -6,10 +6,22 @@
 ###  All the following settings are applied during
 ###  $ docker-compose up
 ###
-###  No need to rebuild any dockers!
+###  No need to rebuild any docker images!
 ###
-###  For custom variables, scroll to the bottom
+###  IMPORTANT:
+###  ----------
+###  When changing any values ensure to stop, rm and restart:
+###  $ docker-compose stop
+###  $ docker-compose rm -f
+###  $ docker-compose up
 ###
+###  NOTE:
+###  -----
+###  For you own custom variables, scroll to the bottom
+###
+
+# The following line will disable any shellcheck warnings throughout this file
+# shellcheck disable=SC2034,SC2125
 
 
 ###
@@ -60,7 +72,7 @@ DEVILBOX_PATH=.
 ### If you are on windows, you will probably have to change
 ### it to the IP address of the docker machine.
 ###
-### a.) Leave blank, to listen on all interfaces (no trailing color ':')
+### a.) Leave blank, to listen on all interfaces (no trailing colon ':')
 ###    LOCAL_LISTEN_ADDR=
 ### b.) If an IP is specified, note the trailing colon ':'
 ###    LOCAL_LISTEN_ADDR=127.0.0.1:
@@ -125,7 +137,6 @@ NEW_GID=1000
 ### Timezone for all dockers and service config files
 ###
 TIMEZONE=Europe/Berlin
-
 
 
 
@@ -203,6 +214,26 @@ DEVILBOX_UI_PASSWORD=password
 DEVILBOX_UI_ENABLE=1
 
 
+###
+### Automatically be logged in into phpMyAdmin
+###
+### Example:
+###   DEVILBOX_VENDOR_PHPMYADMIN_AUTOLOGIN=1
+###   DEVILBOX_VENDOR_PHPMYADMIN_AUTOLOGIN=0
+###
+DEVILBOX_VENDOR_PHPMYADMIN_AUTOLOGIN=1
+
+
+###
+### Automatically be logged in into phpPgAdmin
+###
+### Example:
+###   DEVILBOX_VENDOR_PHPPGADMIN_AUTOLOGIN=1
+###   DEVILBOX_VENDOR_PHPPGADMIN_AUTOLOGIN=0
+###
+DEVILBOX_VENDOR_PHPPGADMIN_AUTOLOGIN=1
+
+
 
 ################################################################################
 ###
@@ -232,6 +263,7 @@ DEVILBOX_UI_ENABLE=1
 #PHP_SERVER=7.1
 PHP_SERVER=7.2
 #PHP_SERVER=7.3
+#PHP_SERVER=7.4
 
 
 ###
@@ -252,9 +284,9 @@ HTTPD_SERVER=nginx-stable
 #MYSQL_SERVER=mysql-8.0
 #MYSQL_SERVER=mariadb-5.5
 #MYSQL_SERVER=mariadb-10.0
-MYSQL_SERVER=mariadb-10.1
+#MYSQL_SERVER=mariadb-10.1
 #MYSQL_SERVER=mariadb-10.2
-#MYSQL_SERVER=mariadb-10.3
+MYSQL_SERVER=mariadb-10.3
 #MYSQL_SERVER=percona-5.5
 #MYSQL_SERVER=percona-5.6
 #MYSQL_SERVER=percona-5.7
@@ -263,57 +295,74 @@ MYSQL_SERVER=mariadb-10.1
 ###
 ### 1.4 Choose PostgreSQL Server Image
 ###
+### IMPORTANT: Apline based images might cause issues on Docker Toolbox or OSX
+###            https://github.com/docker/toolbox/issues/510
+###
+#PGSQL_SERVER=9.0
 #PGSQL_SERVER=9.1
 #PGSQL_SERVER=9.2
+#PGSQL_SERVER=9.2-alpine
 #PGSQL_SERVER=9.3
+#PGSQL_SERVER=9.3-alpine
 #PGSQL_SERVER=9.4
+#PGSQL_SERVER=9.4-alpine
 #PGSQL_SERVER=9.5
-PGSQL_SERVER=9.6
+#PGSQL_SERVER=9.5-alpine
+#PGSQL_SERVER=9.6
+#PGSQL_SERVER=9.6-alpine
 #PGSQL_SERVER=10.0
+#PGSQL_SERVER=10.0-alpine
 #PGSQL_SERVER=10.1
+#PGSQL_SERVER=10.1-alpine
 #PGSQL_SERVER=10.2
+#PGSQL_SERVER=10.2-alpine
 #PGSQL_SERVER=10.3
+#PGSQL_SERVER=10.3-alpine
+#PGSQL_SERVER=10.4
+#PGSQL_SERVER=10.4-alpine
+#PGSQL_SERVER=10.5
+#PGSQL_SERVER=10.5-alpine
+#PGSQL_SERVER=10.6
+#PGSQL_SERVER=10.6-alpine
+#PGSQL_SERVER=11.0
+#PGSQL_SERVER=11.0-alpine
+PGSQL_SERVER=11.1
+#PGSQL_SERVER=11.1-alpine
+#PGSQL_SERVER=latest
+#PGSQL_SERVER=alpine
 
 
 ###
 ### 1.5 Choose Redis Server Image
 ###
+### IMPORTANT: Apline based images might cause issues on Docker Toolbox or OSX
+###            https://github.com/docker/toolbox/issues/510
+###
 #REDIS_SERVER=2.8
 #REDIS_SERVER=3.0
+#REDIS_SERVER=3.0-alpine
 #REDIS_SERVER=3.2
-REDIS_SERVER=4.0
-#REDIS_SERVER=5.0-rc
+#REDIS_SERVER=3.2-alpine
+#REDIS_SERVER=4.0
+#REDIS_SERVER=4.0-alpine
+REDIS_SERVER=5.0
+#REDIS_SERVER=5.0-alpine
+#REDIS_SERVER=latest
+#REDIS_SERVER=alpine
 
 
 ###
 ### 1.6 Choose Memcached Server Image
 ###
-#MEMCD_SERVER=1.4.21
-#MEMCD_SERVER=1.4.22
-#MEMCD_SERVER=1.4.23
-#MEMCD_SERVER=1.4.24
-#MEMCD_SERVER=1.4.25
-#MEMCD_SERVER=1.4.26
-#MEMCD_SERVER=1.4.27
-#MEMCD_SERVER=1.4.28
-#MEMCD_SERVER=1.4.29
-#MEMCD_SERVER=1.4.30
-#MEMCD_SERVER=1.4.31
-#MEMCD_SERVER=1.4.32
-#MEMCD_SERVER=1.4.33
-#MEMCD_SERVER=1.4.34
-#MEMCD_SERVER=1.4.35
-#MEMCD_SERVER=1.4.36
-#MEMCD_SERVER=1.4.37
-#MEMCD_SERVER=1.4.38
-#MEMCD_SERVER=1.4.39
-#MEMCD_SERVER=1.5.0
-#MEMCD_SERVER=1.5.1
-#MEMCD_SERVER=1.5.2
-#MEMCD_SERVER=1.5.3
-#MEMCD_SERVER=1.5.4
-MEMCD_SERVER=1.5.5
+### IMPORTANT: Apline based images might cause issues on Docker Toolbox or OSX
+###            https://github.com/docker/toolbox/issues/510
+###
+#MEMCD_SERVER=1.4
+#MEMCD_SERVER=1.4-alpine
+MEMCD_SERVER=1.5
+#MEMCD_SERVER=1.5-alpine
 #MEMCD_SERVER=latest
+#MEMCD_SERVER=alpine
 
 
 ###
@@ -323,9 +372,9 @@ MEMCD_SERVER=1.5.5
 #MONGO_SERVER=3.0
 #MONGO_SERVER=3.2
 #MONGO_SERVER=3.4
-#MONGO_SERVER=3.5
 #MONGO_SERVER=3.6
-MONGO_SERVER=3.7
+MONGO_SERVER=4.0
+#MONGO_SERVER=latest
 
 
 
@@ -440,9 +489,11 @@ HOST_PATH_MONGO_DATADIR=./data/mongo
 ###
 ### Enable certain PHP modules which are not enabled by default
 ###
-### Currently the only module that can be enabled is 'ioncube'
+### Currently the only modules that can be enabled are 'ioncube' and 'blackfire'
+### Also ensure to disable xdebug when using any of the above:
+### https://xdebug.org/docs/install#compat
 ###
-### PHP_MODULES_ENABLE=ioncube
+### PHP_MODULES_ENABLE=ioncube, blackfire
 ###
 PHP_MODULES_ENABLE=
 
@@ -454,7 +505,7 @@ PHP_MODULES_ENABLE=
 ###
 ### PHP_MODULES_DISABLE=xdebug,imagick,swoole
 ###
-PHP_MODULES_DISABLE=swoole
+PHP_MODULES_DISABLE=oci8,PDO_OCI,pdo_sqlsrv,sqlsrv,rdkafka,swoole
 
 
 ###

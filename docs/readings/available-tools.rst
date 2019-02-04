@@ -66,6 +66,8 @@ The PHP container is your workhorse and these are your tools:
 +----------------------+---------------------------------------+
 | ``phalcon``          | |ext_lnk_tool_phalcon|                |
 +----------------------+---------------------------------------+
+| ``php-cs-fixer``     | |ext_lnk_tool_php_cs_fixer|           |
++----------------------+---------------------------------------+
 | ``phpcs``            | |ext_lnk_tool_phpcs|                  |
 +----------------------+---------------------------------------+
 | ``phpcbf``           | |ext_lnk_tool_phpcbf|                 |
@@ -73,6 +75,8 @@ The PHP container is your workhorse and these are your tools:
 | ``phpunit``          | |ext_lnk_tool_phpunit|                |
 +----------------------+---------------------------------------+
 | ``photon``           | |ext_lnk_tool_photon|                 |
++----------------------+---------------------------------------+
+| ``pm2``              | |ext_lnk_tool_pm2|                    |
 +----------------------+---------------------------------------+
 | ``redis*``           | Various Redis client tools            |
 +----------------------+---------------------------------------+
